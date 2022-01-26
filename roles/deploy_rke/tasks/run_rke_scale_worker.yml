@@ -1,13 +1,6 @@
-# roles/deploy_rke/tasks/create_rke_cluster_config.yml
+# roles/deploy_rke/tasks/run_rke_scale_worker.yml
 ---
   - name: Execute rke up
-    shell: /usr/bin/rke up --config ./rke-cluster.yml
+    shell: /usr/bin/rke up --update-only --config ~/rke-cluster.yml
     args:
       executable: /bin/bash
-    chdir: /home/nutanix
-
-  - name: Execute rke up
-    shell: /usr/bin/rke up --update-only --config ./rke-cluster.yml
-    args:
-      executable: /bin/bash
-    chdir: /home/nutanix
