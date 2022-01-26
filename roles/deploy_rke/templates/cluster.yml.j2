@@ -1,7 +1,7 @@
 nodes:
 {% for controlplane_vm in groups['controlplane'] %}
 - address: {{ controlplane_vm }}
-port: "{{ port }}"
+  port: "{{ port }}"
   internal_address: ""
   role:
   - controlplane
@@ -30,7 +30,7 @@ port: "{{ port }}"
   ssh_key_path: {{ ssh_key_path }}
   ssh_cert: ""
   ssh_cert_path: ""
-  labels: {}
+  labels: { {% if ingress in ["nginx"] %}app: ingress{% endif %} }
   taints: []
 {% endfor %}
 
