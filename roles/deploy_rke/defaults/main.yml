@@ -3,6 +3,8 @@ rancher_rke_download: "https://github.com/rancher/rke/releases/download/v1.3.5/r
 rancher_rke_checksum: "https://github.com/rancher/rke/releases/download/v1.3.5/sha256sum.txt"
 
 port: 22
+user: nutanix
+docker_socket: /var/run/docker.sock
 # servers:
 #   controlplane:
 #     - x.x.x.x
@@ -13,7 +15,7 @@ port: 22
 ignore_docker_version: true
 enable_cri_dockerd: false
 ssh_key_path: ~/.ssh/id_rsa
-ssh_agent_auth: true
+ssh_agent_auth: false
 # private_registries:
 #   - url: registry.com
 #     user: Username
