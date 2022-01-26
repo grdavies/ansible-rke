@@ -1,28 +1,37 @@
 nodes:
 {% for controlplane_vm in groups['controlplane'] %}
-  - address: {{ controlplane_vm }}
-    internal_address: {{ controlplane_vm }}
-    user: nutanix
-    role:
-    - controlplane
-    - etcd
-    port: "{{ port }}"
-    docker_socket: /var/run/docker.sock
-    ssh_key_path: {{ ssh_key_path }}
-    {% if dns_provider in ["coredns", "kube-dns"] %}labels:
-      app: dns
-    {% endif %}
-
+- address: {{ controlplane_vm }}
+port: "{{ port }}"
+  internal_address: ""
+  role:
+  - controlplane
+  - etcd
+  hostname_override: ""
+  user: {{ user }}
+  docker_socket: {{ docker_socket }}
+  ssh_key: ""
+  ssh_key_path: {{ ssh_key_path }}
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {{% if dns_provider in ["coredns", "kube-dns"] %}app: dns{% endif %}}
+  taints: []
 {% endfor %}
 {% for worker_vm in groups['workers'] %}
-  - address: {{ worker_vm }}
-    internal_address: {{ worker_vm }}
-    user: nutanix
-    role:
-    - worker
-    port: "{{ port }}"
-    docker_socket: /var/run/docker.sock
-    ssh_key_path: {{ ssh_key_path }}
+- address: {{ worker_vm }}
+  port: "{{ port }}"
+  internal_address: ""
+  role:
+  - controlplane
+  - etcd
+  hostname_override: ""
+  user: {{ user }}
+  docker_socket: {{ docker_socket }}
+  ssh_key: ""
+  ssh_key_path: {{ ssh_key_path }}
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
 {% endfor %}
 
 # If set to true, RKE will not fail when unsupported Docker version
