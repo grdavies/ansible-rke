@@ -36,10 +36,31 @@
       permanent: true
       state: enabled
     loop:
-      - {{ rancher_rke_fw_controlplane_ports.inbound }}
       - {{ rancher_rke_fw_etcd_ports.inbound }}
     when:
       - "'controlplane' in group_names"
+    become: yes
+
+  - name: open inbound etcd firewall services
+    firewalld:
+      service: "{{ item }}"
+      permanent: true
+      state: enabled
+    loop:
+      - {{ rancher_rke_fw_etcd_svc.inbound }}
+    when:
+      - "'etcd' in group_names"
+    become: yes
+
+  - name: open inbound etcd firewall ports
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      state: enabled
+    loop:
+      - {{ rancher_rke_fw_etcd_ports.inbound }}
+    when:
+      - "'etcd' in group_names"
     become: yes
 
   - name: open inbound worker firewall services
