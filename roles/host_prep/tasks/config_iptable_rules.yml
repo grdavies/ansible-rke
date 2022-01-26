@@ -20,47 +20,23 @@
 
   - name: RKE Control Plane VM IPtables Inbound Rules
     iptables:
-      chain: INPUT
+      chain: "INPUT"
       protocol: "{{ item.protocol }}"
       destination_port: "{{ item.port }}"
       ctstate: NEW
       jump: accept
       action: insert
       when: "'controlplane' in group_names"
-      loop:
-        - { port: '22', protocol: 'tcp' }
-        - { port: '80', protocol: 'tcp' }
-        - { port: '443', protocol: 'tcp' }
-        - { port: '2376', protocol: 'tcp' }
-        - { port: '2379', protocol: 'tcp' }
-        - { port: '2380', protocol: 'tcp' }
-        - { port: '6443', protocol: 'tcp' }
-        - { port: '8472', protocol: 'udp' }
-        - { port: '9099', protocol: 'tcp' }
-        - { port: '10250', protocol: 'tcp' }
-        - { port: '10254', protocol: 'tcp' }
-        - { port: '30000-32767', protocol: 'tcp' }
-        - { port: '30000-32767', protocol: 'udp' }
+      loop: "{{ control_plane_fw_inbound }}"
     become: yes
 
   - name: RKE Worker VM IPtables Inbound Rules
     iptables:
-      chain: INPUT
+      chain: "INPUT"
       protocol: "{{ item.protocol }}"
       destination_port: "{{ item.port }}"
       jump: accept
       action: insert
       when: "'workers' in group_names"
-      loop:
-        - { port: '22', protocol: 'tcp' }
-        - { port: '80', protocol: 'tcp' }
-        - { port: '443', protocol: 'tcp' }
-        - { port: '2376', protocol: 'tcp' }
-        - { port: '6443', protocol: 'tcp' }
-        - { port: '8472', protocol: 'udp' }
-        - { port: '9099', protocol: 'tcp' }
-        - { port: '10250', protocol: 'tcp' }
-        - { port: '10254', protocol: 'tcp' }
-        - { port: '30000-32767', protocol: 'tcp' }
-        - { port: '30000-32767', protocol: 'udp' }
+      loop: "{{ worker_fw_inbound }}"
     become: yes
