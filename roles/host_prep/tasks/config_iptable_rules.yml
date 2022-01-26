@@ -27,7 +27,7 @@
       jump: accept
       action: insert
       when: "'controlplane' in group_names"
-      with_items: "{{ control_plane_fw_inbound }}"
+      loop: "{{ control_plane_fw_inbound }}"
     become: yes
 
   - name: RKE Worker VM IPtables Inbound Rules
@@ -38,5 +38,5 @@
       jump: accept
       action: insert
       when: "'workers' in group_names"
-      with_items: "{{ worker_fw_inbound }}"
+      loop: "{{ worker_fw_inbound }}"
     become: yes
