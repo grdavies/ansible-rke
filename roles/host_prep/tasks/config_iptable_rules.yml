@@ -20,23 +20,22 @@
 
   - name: RKE Control Plane VM IPtables Inbound Rules
     iptables:
-      chain: "INPUT"
+      chain: INPUT
       protocol: "{{ item.protocol }}"
       destination_port: "{{ item.port }}"
       ctstate: NEW
-      jump: accept
-      action: insert
+      jump: ACCEPT
       when: "'controlplane' in group_names"
     loop: "{{ control_plane_fw_inbound }}"
     become: yes
 
   - name: RKE Worker VM IPtables Inbound Rules
     iptables:
-      chain: "INPUT"
+      chain: INPUT
       protocol: "{{ item.protocol }}"
       destination_port: "{{ item.port }}"
-      jump: accept
-      action: insert
+      ctstate: NEW
+      jump: ACCEPT
       when: "'workers' in group_names"
     loop: "{{ worker_fw_inbound }}"
     become: yes
