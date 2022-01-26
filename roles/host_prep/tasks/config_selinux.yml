@@ -1,0 +1,6 @@
+# roles/deploy_rke/tasks/config_selinux.yml
+---
+  - name: put selinux in permissive mode, logging actions that would be blocked.
+    selinux:
+      policy: targeted
+      state: permissive

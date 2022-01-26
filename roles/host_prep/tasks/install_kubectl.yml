@@ -1,0 +1,22 @@
+# roles/host_prep/tasks/install_kubectl.yml
+---
+  - name: add kubernetes yum repo
+    yum_repository:
+      name: Kubernetes
+      description: Kubernetes YUM repo
+      baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+      gpgcheck: yes
+      repo_gpgcheck: yes
+      enabled: yes
+    when:
+      - "'admin_vm' in group_names"
+    become: yes
+
+  - name: install the latest version of kubectl
+    yum:
+      name: kubectl
+      state: latest
+    when:
+      - "'admin_vm' in group_names"
+    become: yes

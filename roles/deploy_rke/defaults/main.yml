@@ -2,6 +2,56 @@
 rancher_rke_download: "https://github.com/rancher/rke/releases/download/v1.3.5/rke_linux-amd64"
 rancher_rke_checksum: "https://github.com/rancher/rke/releases/download/v1.3.5/sha256sum.txt"
 
+rancher_rke_fw_controlplane_svc:
+  inbound:
+    - "http"
+    - "https"
+    - "ssh"
+  outbound:
+
+rancher_rke_fw_controlplane_ports:
+  inbound:
+    - "2376/tcp"
+    - "6443/tcp"
+    - "8472/udp"
+    - "9099/tcp"
+    - "10250/tcp"
+    - "10254/tcp"
+    - "30000-32767/tcp"
+  outbound:
+
+rancher_rke_fw_etcd_svc:
+  inbound:
+    - "ssh"
+  outbound:
+
+rancher_rke_fw_etcd_ports:
+  inbound:
+    - "2376/tcp"
+    - "2379/tcp"
+    - "2380/tcp"
+    - "8472/udp"
+    - "9099/tcp"
+    - "10250/tcp"
+  outbound:
+
+rancher_rke_fw_worker_svc:
+  inbound:
+    - "http"
+    - "https"
+    - "ssh"
+  outbound:
+
+rancher_rke_fw_worker_ports:
+  inbound:
+    - "2376/tcp"
+    - "8472/udp"
+    - "9099/tcp"
+    - "10250/tcp"
+    - "10254/tcp"
+    - "30000-32767/tcp"
+  outbound:
+
 port: 22
 user: nutanix
 docker_socket: /var/run/docker.sock

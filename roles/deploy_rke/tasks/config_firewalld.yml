@@ -1,0 +1,65 @@
+# roles/host_prep/tasks/config_firewalld.yml
+---
+  - name: install firewalld
+    yum:
+      name: "firewalld"
+      state: latest
+    become: yes
+
+  - name: enable firewalld
+    service:
+      name: firewalld
+      enabled: yes
+    become: yes
+
+  - name: start firewalld
+    service:
+      name: firewalld
+      state: started
+    become: yes
+
+  - name: open inbound control plane firewall services
+    firewalld:
+      service: "{{ item }}"
+      permanent: true
+      state: enabled
+    loop:
+      - {{ rancher_rke_fw_controlplane_svc.inbound }}
+      - {{ rancher_rke_fw_etcd_svc.inbound }}
+    when:
+      - "'controlplane' in group_names"
+    become: yes
+
+  - name: open inbound control plane firewall ports
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      state: enabled
+    loop:
+      - {{ rancher_rke_fw_controlplane_ports.inbound }}
+      - {{ rancher_rke_fw_etcd_ports.inbound }}
+    when:
+      - "'controlplane' in group_names"
+    become: yes
+
+  - name: open inbound worker firewall services
+    firewalld:
+      service: "{{ item }}"
+      permanent: true
+      state: enabled
+    loop:
+      - {{ rancher_rke_fw_worker_svc.inbound }}
+    when:
+      - "'controlplane' in group_names"
+    become: yes
+
+  - name: open inbound worker firewall ports
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      state: enabled
+    loop:
+      - {{ rancher_rke_fw_worker_ports.inbound }}
+    when:
+      - "'controlplane' in group_names"
+    become: yes

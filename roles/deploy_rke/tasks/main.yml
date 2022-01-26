@@ -1,36 +1,42 @@
 # roles/deploy_rke/tasks/main.yml
-  - name: "Include {{ network_plugin }} network defaults"
+  - name: "include {{ network_plugin }} network defaults"
     include_vars: "network-{{ network_plugin }}.yml"
-    tags:
-      - install
-      - scale_controlplane
-      - scale_worker
 
-  - name: "Download RKE"
-    include_tasks: get_rke.yml
-    tags:
-      - install
-      - scale_controlplane
-      - scale_worker
+  - name: "configure swap"
+    include_tasks: config_swap.yml
 
-  - name: "Create / Update Cluster Configuration File"
+  - name: "configure sysctl"
+    include_tasks: config_sysctl.yml
+
+  - name: "install docker"
+    include_tasks: install_docker.yml
+
+  - name: "configure kernel modules"
+    include_tasks: config_kernel_modules.yml
+
+  - name: "install packages for nutanix csi driver"
+    include_tasks: install_csi_packages.yml
+
+  - name: "configure firewall"
+    include_tasks: config_firewalld.yml
+
+  - name: "download rke"
+    include_tasks: install_rke.yml
+
+  - name: "create / update cluster configuration file"
     include_tasks: create_rke_cluster_config.yml
-    tags:
-      - install
-      - scale_controlplane
-      - scale_worker
 
-  - name: "Initialize Cluster"
+  - name: "initialize cluster"
     include_tasks: run_rke_install.yml
     tags:
       - install
 
-  - name: "Initialize Control Plane"
+  - name: "initialize control plane"
     include_tasks: run_rke_scale_controlplane.yml
     tags:
       - scale_controlplane
 
-  - name: "Scale Workers"
+  - name: "scale workers"
     include_tasks: run_rke_scale_worker.yml
     tags:
       - scale_worker

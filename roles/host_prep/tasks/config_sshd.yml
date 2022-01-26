@@ -1,9 +1,16 @@
 # roles/deploy_rke/tasks/configure_sshd_config.yml
 ---
-  - name: Enable AllowTcpForwarding for SSH 
+  - name: enable allowtcpforwarding for ssh
     lineinfile:
       path: "/etc/ssh/sshd_config"
       regex: ^(# *)?AllowTcpForwarding
       line: AllowTcpForwarding yes
     notify: "restart sshd service"
+    become: yes
+
+  - name: open ssh in firewall
+    firewalld:
+      service: "ssh"
+      permanent: true
+      state: enabled
     become: yes

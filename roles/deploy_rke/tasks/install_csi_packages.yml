@@ -1,0 +1,22 @@
+# roles/deploy_rke/tasks/install_csi_packages.yml
+---
+  - name: install packages needed by nutanix csi driver
+    yum:
+      name: "{{ item }}"
+      state: latest
+    loop:
+      - "iscsi-initiator-utils"
+      - "nfs-utils"
+    become: yes
+
+  - name: Enable iscsi service
+    service:
+      name: iscsid
+      enabled: yes
+    become: yes
+
+  - name: Start iscsi service
+    service:
+      name: iscsid
+      state: started
+    become: yes

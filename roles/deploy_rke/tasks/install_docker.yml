@@ -1,0 +1,43 @@
+# roles/host_prep/tasks/install_kubectl.yml
+---
+  - name: add docker-ce yum repo
+    yum_repository:
+      name: docker-ce
+      description: docker-ce YUM repo
+      baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+      gpgcheck: no
+      enabled: yes
+    become: yes
+
+  - name: install the latest version of docker-ce
+    yum:
+      name: "{{ item }}"
+      state: latest
+    loop:
+      - "docker-ce"
+      - "docker-ce-cli"
+      - "containerd.io"
+    become: yes
+
+  - name: Enable docker service
+    service:
+      name: docker
+      enabled: yes
+    become: yes
+
+  - name: Start docker service
+    service:
+      name: docker
+      state: started
+    become: yes
+
+  - name: Add the user 'nutanix' to the 'docker' group
+    user:
+      name: nutanix
+      group: docker
+      append: yes
+    become: yes
+
+  - name: Get docker version
+    shell: docker version
+    become: yes

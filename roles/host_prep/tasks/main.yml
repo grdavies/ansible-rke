@@ -4,5 +4,17 @@
   # - name: "Configure Firewall (IPtables)"
   #   include_tasks: config_iptable_rules.yml
 
+  - name: "configure selinux"
+    include_tasks: config_selinux.yml
+
   - name: "Configure SSHD"
-    include_tasks: config_sshd_config.yml
+    include_tasks: config_sshd.yml
+
+  - name: "Configure Kernel Modules"
+    include_tasks: config_kernel_modules.yml
+
+  - name: "Configure Swap"
+    include_tasks: config_swap.yml
+
+  - name: "Configure Sysctl"
+    include_tasks: config_sysctl.yml

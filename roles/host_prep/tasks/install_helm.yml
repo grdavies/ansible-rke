@@ -1,0 +1,19 @@
+# roles/host_prep/tasks/install_helm.yml
+---
+  - name: download helm
+    unarchive:
+      src: "{{ helm_url }}"
+      dest: /usr/bin
+      owner: root
+      group: root
+      mode: 0755
+    remote_src: yes
+    when:
+      - "'admin_vm' in group_names"
+    become: yes
+
+  - name: install or upgrade tiller
+    shell: "/usr/bin/helm init --upgrade"
+    when:
+      - "'admin_vm' in group_names"
+    become: yes
