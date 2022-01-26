@@ -12,6 +12,7 @@ nodes:
     {% if dns_provider in ["coredns", "kube-dns"] %}labels:
       app: dns
     {% endif %}
+
 {% endfor %}
 {% for worker_vm in groups['workers'] %}
   - address: {{ worker_vm }}
@@ -165,8 +166,8 @@ network:
   plugin: canal
   mtu: 1400
   options:
-    {% if iface is defined %}canal_iface: {{ iface }} {%endif%}
-    {% if backend_type is defined %}canal_flannel_backend_type: {{ backend_type }} {% endif %}
+    canal_iface: {{ iface }}
+    canal_flannel_backend_type: {{ backend_type }}
     canal_autoscaler_priority_class_name: system-cluster-critical
     canal_priority_class_name: system-cluster-critical
   tolerations:
@@ -183,8 +184,8 @@ network:
 network:
   plugin: flannel
   options:
-    {% if iface is defined %}flannel_iface: {{ iface }} {% endif %}
-    {% if backend_type is defined %}flannel_backend_type: {{ backend_type }} {% endif %}
+    flannel_iface: {{ iface }}
+    {flannel_backend_type: {{ backend_type }}
     flannel_autoscaler_priority_class_name: system-cluster-critical
     flannel_priority_class_name: system-cluster-critical
 {% endif %}
@@ -192,7 +193,7 @@ network:
 network:
   plugin: calico
   options:
-    {% if calico_cloud_provider is defined %}calico_cloud_provider: {{ calico_cloud_provider }} {% endif %}
+    calico_cloud_provider: {{ calico_cloud_provider }}
     calico_autoscaler_priority_class_name: system-cluster-critical
     calico_priority_class_name: system-cluster-critical
   tolerations:
