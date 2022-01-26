@@ -25,7 +25,7 @@
       destination_port: "{{ item.port }}"
       ctstate: NEW
       jump: ACCEPT
-      when: "'controlplane' in group_names"
+    when: "'controlplane' in group_names"
     loop: "{{ control_plane_fw_inbound }}"
     become: yes
 
@@ -36,6 +36,6 @@
       destination_port: "{{ item.port }}"
       ctstate: NEW
       jump: ACCEPT
-      when: "'workers' in group_names"
+    when: "'workers' in group_names"
     loop: "{{ worker_fw_inbound }}"
     become: yes
