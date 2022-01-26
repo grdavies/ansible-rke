@@ -5,7 +5,6 @@ nodes:
   internal_address: ""
   role:
   - controlplane
-  - etcd
   hostname_override: ""
   user: {{ user }}
   docker_socket: {{ docker_socket }}
@@ -14,6 +13,22 @@ nodes:
   ssh_cert: ""
   ssh_cert_path: ""
   labels: { {% if dns_provider in ["coredns", "kube-dns"] %}app: dns{% endif %} }
+  taints: []
+{% endfor %}
+{% for etcd_vm in groups['etcd'] %}
+- address: {{ etcd_vm }}
+  port: "{{ port }}"
+  internal_address: ""
+  role:
+  - etcd
+  hostname_override: ""
+  user: {{ user }}
+  docker_socket: {{ docker_socket }}
+  ssh_key: ""
+  ssh_key_path: {{ ssh_key_path }}
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
   taints: []
 {% endfor %}
 {% for worker_vm in groups['workers'] %}
