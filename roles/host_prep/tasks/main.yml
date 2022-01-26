@@ -1,8 +1,8 @@
 # roles/host_prep/tasks/main.yml
 ---
 
-  - name: "Configure Firewall (IPtables)"
-    include_tasks: config_iptable_rules.yml
+  # - name: "Configure Firewall (IPtables)"
+  #   include_tasks: config_iptable_rules.yml
 
   - name: "Configure SSHD"
     include_tasks: config_sshd_config.yml
