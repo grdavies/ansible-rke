@@ -2,7 +2,7 @@
 rancher_rke_download: "https://github.com/rancher/rke/releases/download/v1.3.5/rke_linux-amd64"
 rancher_rke_checksum: "https://github.com/rancher/rke/releases/download/v1.3.5/sha256sum.txt"
 
-# port: 2222
+port: 22
 # servers:
 #   controlplane:
 #     - x.x.x.x
