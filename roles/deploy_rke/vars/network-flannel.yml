@@ -1,0 +1,5 @@
+# roles/deploy_rke/vars/network-flannel.yml
+iface: eth0
+backend_type: vxlan
+autoscaler_priority_class_name: system-cluster-critical # Available as of RKE v1.2.6+
+priority_class_name: system-cluster-critical # Available as of RKE v1.2.6+

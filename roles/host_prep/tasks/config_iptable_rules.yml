@@ -1,0 +1,63 @@
+# roles/host_prep/tasks/iptables.yml
+---
+  - name: Allow related and established connections
+    iptables:
+      chain: INPUT
+      ctstate: ESTABLISHED,RELATED
+      jump: ACCEPT
+    become: yes
+
+  - name: Allow new incoming SYN packets on TCP port 22 (SSH).
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      destination_port: 22
+      ctstate: NEW
+      syn: match
+      jump: ACCEPT
+      comment: Accept new SSH connections.
+
+  - name: RKE Control Plane VM IPtables Rules
+    iptables:
+      chain: {{ item.chain }}
+      protocol: {{ item.protocol }}
+      destination_port: {{ item.port }}
+      ctstate: NEW
+      jump: accept
+      action: insert
+      when: "'controlplane' in group_names"
+      with_items:
+        - { port: 22, protocol: "tcp", chain: "INPUT" }
+        - { port: 80, protocol: "tcp", chain: "INPUT" }
+        - { port: 443, protocol: "tcp", chain: "INPUT" }
+        - { port: 2376, protocol: "tcp", chain: "INPUT" }
+        - { port: 2379, protocol: "tcp", chain: "INPUT" }
+        - { port: 2380, protocol: "tcp", chain: "INPUT" }
+        - { port: 6443, protocol: "tcp", chain: "INPUT" }
+        - { port: 8472, protocol: "udp", chain: "INPUT" }
+        - { port: 9099, protocol: "tcp", chain: "INPUT" }
+        - { port: 10250, protocol: "tcp", chain: "INPUT" }
+        - { port: 10254, protocol: "tcp", chain: "INPUT" }
+        - { port: 30000-32767, protocol: "tcp", chain: "INPUT" }
+        - { port: 30000-32767, protocol: "udp", chain: "INPUT" }
+
+  - name: RKE Worker VM IPtables Rules
+    iptables:
+      chain: {{ item.chain }}
+      protocol: {{ item.protocol }}
+      destination_port: {{ item.port }}
+      jump: accept
+      action: insert
+      when: "'workers' in group_names"
+      with_items:
+        - { port: 22, protocol: "tcp", chain: "INPUT" }
+        - { port: 80, protocol: "tcp", chain: "INPUT" }
+        - { port: 443, protocol: "tcp", chain: "INPUT" }
+        - { port: 2376, protocol: "tcp", chain: "INPUT" }
+        - { port: 6443, protocol: "tcp", chain: "INPUT" }
+        - { port: 8472, protocol: "udp", chain: "INPUT" }
+        - { port: 9099, protocol: "tcp", chain: "INPUT" }
+        - { port: 10250, protocol: "tcp", chain: "INPUT" }
+        - { port: 10254, protocol: "tcp", chain: "INPUT" }
+        - { port: 30000-32767, protocol: "tcp", chain: "INPUT" }
+        - { port: 30000-32767, protocol: "udp", chain: "INPUT" }

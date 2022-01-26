@@ -1,0 +1,10 @@
+# roles/deploy_rke/tasks/get_rke.yml
+---
+  - name: Download Rancher RKE
+    get_url:
+      url: "{{ rancher_rke_download }}"
+      checksum: "sha256:{{ rancher_rke_checksum }}"
+      dest: /usr/bin/rke
+      owner: "root"
+      owner: "root"
+      mode: 0755

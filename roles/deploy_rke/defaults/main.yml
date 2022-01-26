@@ -1,0 +1,61 @@
+# roles/defaults/main.yml
+rancher_rke_download: "https://github.com/rancher/rke/releases/download/v1.3.5/rke_linux-amd64"
+rancher_rke_checksum: "https://github.com/rancher/rke/releases/download/v1.3.5/sha256sum.txt"
+
+# port: 2222
+# servers:
+#   controlplane:
+#     - x.x.x.x
+#     - x.x.x.y
+#   workers:
+#     - x.x.z.x
+#     - x.x.z.y
+ignore_docker_version: false
+enable_cri_dockerd: true
+ssh_key_path: "/home/nutanix/.ssh/id_rsa.pub"
+ssh_agent_auth: true
+# private_registries:
+#   - url: registry.com
+#     user: Username
+#     password: password
+#     is_default: true
+# bastion_host:
+#   address: x.x.x.x
+#   user: ubuntu
+#   port: 22
+#   ssh_key_path: /home/user/.ssh/bastion_rsa
+# cluster_name: "mycluster"
+kubernetes_version: "v1.10.3-rancher2"
+# system_images:
+#     kubernetes: rancher/hyperkube:v1.10.3-rancher2
+#     etcd: rancher/coreos-etcd:v3.1.12
+#     alpine: rancher/rke-tools:v0.1.9
+#     nginx_proxy: rancher/rke-tools:v0.1.9
+#     cert_downloader: rancher/rke-tools:v0.1.9
+#     kubernetes_services_sidecar: rancher/rke-tools:v0.1.9
+#     kubedns: rancher/k8s-dns-kube-dns-amd64:1.14.8
+#     dnsmasq: rancher/k8s-dns-dnsmasq-nanny-amd64:1.14.8
+#     kubedns_sidecar: rancher/k8s-dns-sidecar-amd64:1.14.8
+#     kubedns_autoscaler: rancher/cluster-proportional-autoscaler-amd64:1.0.0
+#     pod_infra_container: rancher/pause-amd64:3.1
+# authentication:
+#     strategy: x509
+#     sans:
+#       - "10.18.160.10"
+#       - "my-loadbalancer-1234567890.us-west-2.elb.amazonaws.com"
+authorization:
+  mode:  none # none or rbac
+# cloud_provider:
+#     name: aws
+addon_job_timeout: 30
+network_plugin: canal # canal, calico, flannel, weave, or none
+dns_provider: coredns # none, coredns or kube-dns
+upstream_dns_servers:
+  - 1.1.1.1
+  - 8.8.4.4
+ingress_provider: nginx # none, nginx
+addons_include:
+  - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-rbac.yaml
+  - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-node.yaml
+  - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-provisioner.yaml
+  - https://github.com/nutanix/csi-plugin/blob/master/deploy/csi-driver.yaml

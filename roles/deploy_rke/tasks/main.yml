@@ -1,0 +1,18 @@
+# roles/tasks/main.yml
+  - name: "Include {{ network_plugin }} network defaults"
+    include_vars: "network-{{ network_plugin }}.yml"
+
+  - name: "Download RKE"
+    include_tasks: get_rke.yml
+
+  # - name: "Configure FilewallD"
+  #   include_tasks: rfirewalld.yml
+
+  - name: "Create / Update Cluster Configuration File"
+    include_tasks: create_rke_cluster_config.yml
+
+  # - name: "Initialize Cluster"
+  #   include_tasks: run_rke_install.yml
+
+  # - name: "Scale Cluster"
+  #   include_tasks: run_rke_scale_worker.yml

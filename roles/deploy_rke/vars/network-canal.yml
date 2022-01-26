@@ -1,0 +1,14 @@
+# roles/deploy_rke/vars/network-canal.ymls
+iface: eth0
+backend_type: vxlan
+autoscaler_priority_class_name: system-cluster-critical # Available as of RKE v1.2.6+
+priority_class_name: system-cluster-critical # Available as of RKE v1.2.6+
+tolerations:
+  - key: "node.kubernetes.io/unreachable"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationseconds: 300
+  - key: "node.kubernetes.io/not-ready"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationseconds: 300

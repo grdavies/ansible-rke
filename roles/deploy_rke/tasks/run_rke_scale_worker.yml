@@ -1,0 +1,13 @@
+# roles/deploy_rke/tasks/create_rke_cluster_config.yml
+---
+  - name: Execute rke up
+    shell: /usr/bin/rke up --config ./rancher-cluster.yml
+    args:
+      executable: /bin/bash
+    chdir: /home/nutanix
+
+  - name: Execute rke up
+    shell: /usr/bin/rke up --update-only --config ./rancher-cluster.yml
+    args:
+      executable: /bin/bash
+    chdir: /home/nutanix

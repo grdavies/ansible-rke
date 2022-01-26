@@ -1,0 +1,278 @@
+# roles/templates/cluster.yml.j2
+
+nodes:
+  {% for item in {{ hostvars[ groups['controlplane']] }} %}
+  - address: {{ item.ansible_host }}
+    user: nutanix
+    role:
+      - controlplane
+      - etcd
+    port: {{ port }}
+    docker_socket: /var/run/docker.sock
+    {% if dns_provider in ["coredns", "kube-dns"] %}
+    labels:
+      app: dns
+    {% endif %}
+  {% endfor %}
+  {% for item in {{ hostvars[ groups['workers']] }} %}
+  - address: {{ item.ansible_host }}
+    user: nutanix
+    role:
+      - worker
+    port: {{ port }}
+    docker_socket: /var/run/docker.sock
+  {% endfor %}
+
+
+# If set to true, RKE will not fail when unsupported Docker version
+# are found
+ignore_docker_version: {{ ignore_docker_version }}
+
+# Enable running cri-dockerd
+# Up to Kubernetes 1.23, kubelet contained code called dockershim
+# to support Docker runtime. The replacement is called cri-dockerd
+# and should be enabled if you want to keep using Docker as your
+# container runtime
+# Only available to enable in Kubernetes 1.21 and higher
+enable_cri_dockerd: {{ enable_cri_dockerd }}
+
+{% if ssh_key_path %}
+# Cluster level SSH private key
+# Used if no ssh information is set for the node
+ssh_key_path: {{ ssh_key_path }}
+{% endif %}
+
+{% if ssh_agent_auth %}
+# Enable use of SSH agent to use SSH private keys with passphrase
+# This requires the environment `SSH_AUTH_SOCK` configured pointing
+#to your SSH agent which has the private key added
+ssh_agent_auth: {{ ssh_agent_auth }}
+{% endif %}
+
+
+{% if private_registries %}
+# List of registry credentials
+# If you are using a Docker Hub registry, you can omit the `url`
+# or set it to `docker.io`
+# is_default set to `true` will override the system default
+# registry set in the global settings
+private_registries:
+{% for registry in private_registries %}
+  - url: {{ registry.url }}
+    user: {{ registry.user }}
+    password: {{ registry.password }}
+    is_default: {{ registry.is_default }}
+{% endfor %}
+{% endif %}
+
+{% if bastion_host %}
+# Bastion/Jump host configuration
+bastion_host:
+    address: {{ bastion_host.address }}
+    user: {{ bastion_host.user }}
+    port: {{ bastion_host.port }}
+    ssh_key_path: {{ bastion_host.ssh_key_path }}
+{% endif %}
+
+# Set the name of the Kubernetes cluster
+cluster_name: {{ cluster_name }}
+
+
+# The Kubernetes version used. The default versions of Kubernetes
+# are tied to specific versions of the system images.
+#
+# For RKE v0.2.x and below, the map of Kubernetes versions and their system images is
+# located here:
+# https://github.com/rancher/types/blob/release/v2.2/apis/management.cattle.io/v3/k8s_defaults.go
+#
+# For RKE v0.3.0 and above, the map of Kubernetes versions and their system images is
+# located here:
+# https://github.com/rancher/kontainer-driver-metadata/blob/master/rke/k8s_rke_system_images.go
+#
+# In case the kubernetes_version and kubernetes image in
+# system_images are defined, the system_images configuration
+# will take precedence over kubernetes_version.
+kubernetes_version: {{ kubernetes_version }}
+
+{% if system_images %}
+# System Images are defaulted to a tag that is mapped to a specific
+# Kubernetes Version and not required in a cluster.yml.
+# Each individual system image can be specified if you want to use a different tag.
+#
+# For RKE v0.2.x and below, the map of Kubernetes versions and their system images is
+# located here:
+# https://github.com/rancher/types/blob/release/v2.2/apis/management.cattle.io/v3/k8s_defaults.go
+#
+# For RKE v0.3.0 and above, the map of Kubernetes versions and their system images is
+# located here:
+# https://github.com/rancher/kontainer-driver-metadata/blob/master/rke/k8s_rke_system_images.go
+#
+system_images:
+    kubernetes: {{ system_images.kubernetes }}
+    etcd: {{ system_images.etcd }}
+    alpine: {{ system_images.alpine }}
+    nginx_proxy: {{ system_images.nginx_proxy }}
+    cert_downloader: {{ system_images.cert_downloader }}
+    kubernetes_services_sidecar: {{ system_images.kubernetes_services_sidecar }}
+    kubedns: {{ system_images.kubedns }}
+    dnsmasq: {{ system_images.dnsmasq }}
+    kubedns_sidecar: {{ system_images.kubedns_sidecar }}
+    kubedns_autoscaler: {{ system_images.kubedns_autoscaler }}
+    pod_infra_container: {{ system_images.pod_infra_container }}
+{% endif %}
+
+{% if authentication %}
+# Currently, only authentication strategy supported is x509.
+# You can optionally create additional SANs (hostnames or IPs) to
+# add to the API server PKI certificate.
+# This is useful if you want to use a load balancer for the
+# control plane servers.
+authentication:
+    strategy: {{ authentication.strategy}}
+    sans:
+    {{ authentication.sans}}
+{% endif %}
+
+{% if authorization %}
+# Kubernetes Authorization mode
+# Use `mode: rbac` to enable RBAC
+# Use `mode: none` to disable authorization
+authorization:
+    mode: {{ authentication.mode}}
+{% endif %}
+
+{% if cloud_provider %}
+# If you want to set a Kubernetes cloud provider, you specify
+# the name and configuration
+cloud_provider:
+    name: {{ cloud_provider.name }}
+{% endif %}
+
+# Add-ons are deployed using kubernetes jobs. RKE will give
+# up on trying to get the job status after this timeout in seconds..
+addon_job_timeout: {{ addon_job_timeout }}
+
+# Specify network plugin-in (canal, calico, flannel, weave, or none)
+{% if network_plugin == "none" %}
+network:
+  plugin: none
+{% endif %}
+{% if network_plugin == "canal" %}
+network:
+  plugin: canal
+  mtu: 1400
+  options:
+    {% if iface %}canal_iface: {{ iface }} {%endif%}
+    {% if backend_type %}canal_flannel_backend_type: {{ backend_type }} {% endif %}
+    canal_autoscaler_priority_class_name: system-cluster-critical {% endif %}
+    canal_priority_class_name: system-cluster-critical {% endif %}
+    tolerations:
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationseconds: 300
+      - key: "node.kubernetes.io/not-ready"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationseconds: 300
+{% endif %}
+{% if network_plugin == "flannel" %}
+network:
+  plugin: flannel
+  options:
+    {% if iface %}flannel_iface: {{ iface }} {% endif %}
+    {% if backend_type %}flannel_backend_type: {{ backend_type }} {% endif %}
+    {% if autoscaler_priority_class_name %}flannel_autoscaler_priority_class_name: system-cluster-critical {% endif %}
+    {% if priority_class_name %}flannel_priority_class_name: system-cluster-critical {% endif %}
+{% endif %}
+{% if network_plugin == "calico" %}
+network:
+  plugin: calico
+  options:
+    {% if calico_cloud_provider %}calico_cloud_provider: {{ calico_cloud_provider }} {% endif %}
+    calico_autoscaler_priority_class_name: system-cluster-critical
+    calico_priority_class_name: system-cluster-critical
+    tolerations:
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationseconds: 300
+      - key: "node.kubernetes.io/not-ready"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationseconds: 300
+{% endif %}
+{% if network_plugin == "weave" %}
+network:
+  plugin: weave
+  options:
+    weave_autoscaler_priority_class_name: system-cluster-critical
+    weave_priority_class_name: system-cluster-critical
+  {% if weave_password %}
+  weave_network_provider:
+    password: {{ weave_password }}
+  {% endif %}
+{% endif %}
+
+{% if dns_provider == "none" %}
+dns:
+  provider: none
+{% else %}
+dns:
+  provider: {{ dns_provider }}
+  options:
+    coredns_autoscaler_priority_class_name: system-cluster-critical
+    coredns_priority_class_name: system-cluster-critical
+  upstreamnameservers: {{ upstream_dns_servers }}
+  update_strategy:
+    strategy: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 20%
+      maxSurge: 15%
+  linear_autoscaler_params:
+    cores_per_replica: 0.34
+    nodes_per_replica: 4
+    prevent_single_point_failure: true
+    min: 2
+    max: 3
+  tolerations:
+    - key: "node.kubernetes.io/unreachable"
+      operator: "Exists"
+      effect: "NoExecute"
+      tolerationseconds: 300
+    - key: "node.kubernetes.io/not-ready"
+      operator: "Exists"
+      effect: "NoExecute"
+      tolerationseconds: 300
+  node_selector:
+    app: dns
+{% endif %}
+
+# Specify monitoring provider (metrics-server)
+monitoring:
+  provider: metrics-server
+  # Available as of v1.1.0
+  update_strategy:
+    strategy: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 8
+
+# Currently only nginx ingress provider is supported.
+# To disable ingress controller, set `provider: none`
+# `node_selector` controls ingress placement and is optional
+{% if ingress == "none" %}
+ingress:
+  provider: none
+{% else %}
+ingress:
+  provider: nginx
+  node_selector:
+    app: ingress
+  # Available as of v1.1.0
+  update_strategy:
+    strategy: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 5
+{% endif %}
+
+addons_include: {{ addons_include }}

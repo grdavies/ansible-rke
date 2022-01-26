@@ -1,0 +1,7 @@
+# roles/deploy_rke/tasks/create_rke_cluster_config.yml
+---
+  - name: Initialize Cluster
+    shell: /usr/bin/rke up  --config ./rancher-cluster.yml
+    args:
+      executable: /bin/bash
+    chdir: /home/nutanix

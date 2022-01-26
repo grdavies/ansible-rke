@@ -1,0 +1,4 @@
+# roles/deploy_rke/vars/network-weave.yml
+autoscaler_priority_class_name: system-cluster-critical
+priority_class_name: system-cluster-critical
+weave_password: "Q]SZOQ5wp@n$oijz"

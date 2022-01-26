@@ -1,0 +1,10 @@
+# roles/deploy_rke/tasks/create_rke_config.yml
+---
+
+  - name: Create RKE Cluster Config (/home/nutanix/rancher-cluster.yml )
+    ansible.builtin.template:
+      src: templates/cluster.yml.j2
+      dest: /home/nutanix/rancher-cluster.yml
+      owner: nutanix
+      group: nutanix
+      mode: '0600'

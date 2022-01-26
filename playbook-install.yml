@@ -1,0 +1,14 @@
+---
+# file: playbook_image_nodes.yml
+# ansible-playbook site.yml -i inventory -e cluster_name="test_cluster" -t download
+# ansible-playbook site.yml -i inventory -c paramiko -e cluster_name="test_cluster" -t download
+
+  - name: "Host Preparation"
+    hosts: controlplane:workers
+    tasks:
+    - include_role: {  name: host_prep }
+
+  - name: "Deploy/Scale RKE"
+    hosts: localhost
+    tasks:
+    - include_role: {  name: deploy_rke }
