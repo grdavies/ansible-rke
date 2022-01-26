@@ -20,7 +20,7 @@
 
   - name: RKE Control Plane VM IPtables Inbound Rules
     iptables:
-      chain: "INPUT"
+      chain: INPUT
       protocol: "{{ item.protocol }}"
       destination_port: "{{ item.port }}"
       ctstate: NEW
@@ -32,7 +32,7 @@
 
   - name: RKE Worker VM IPtables Inbound Rules
     iptables:
-      chain: "INPUT"
+      chain: INPUT
       protocol: "{{ item.protocol }}"
       destination_port: "{{ item.port }}"
       jump: accept
