@@ -5,6 +5,7 @@ rancher_rke_checksum: "https://github.com/rancher/rke/releases/download/v1.3.5/s
 port: 22
 user: nutanix
 docker_socket: /var/run/docker.sock
+ingress: nginx
 # servers:
 #   controlplane:
 #     - x.x.x.x
