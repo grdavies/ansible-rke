@@ -10,7 +10,8 @@ nodes:
     docker_socket: /var/run/docker.sock
     ssh_key_path: {{ ssh_key_path }}
     {% if dns_provider in ["coredns", "kube-dns"] %}labels:
-      app: dns{% endif %}
+      app: dns
+    {% endif %}
 {% endfor %}
 {% for worker_vm in groups['workers'] %}
   - address: {{ worker_vm }}
