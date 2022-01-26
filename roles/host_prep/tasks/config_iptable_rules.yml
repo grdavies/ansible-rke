@@ -11,7 +11,7 @@
     iptables:
       chain: INPUT
       protocol: tcp
-      destination_port: 22
+      destination_port: "22"
       ctstate: NEW
       syn: match
       jump: ACCEPT
@@ -20,8 +20,8 @@
   - name: RKE Control Plane VM IPtables Inbound Rules
     iptables:
       chain: "INPUT"
-      protocol: {{ item.protocol }}
-      destination_port: {{ item.port }}
+      protocol: "{{ item.protocol }}"
+      destination_port: "{{ item.port }}"
       ctstate: NEW
       jump: accept
       action: insert
@@ -31,8 +31,8 @@
   - name: RKE Worker VM IPtables Inbound Rules
     iptables:
       chain: "INPUT"
-      protocol: {{ item.protocol }}
-      destination_port: {{ item.port }}
+      protocol: "{{ item.protocol }}"
+      destination_port: "{{ item.port }}"
       jump: accept
       action: insert
       when: "'workers' in group_names"
