@@ -5,6 +5,9 @@
       chain: INPUT
       ctstate: ESTABLISHED,RELATED
       jump: ACCEPT
+    when:
+      - "'controlplane' in group_names"
+      - "'workers' in group_names"
     become: yes
 
   - name: Allow new incoming SYN packets on TCP port 22 (SSH).
@@ -16,6 +19,9 @@
       syn: match
       jump: ACCEPT
       comment: Accept new SSH connections.
+    when:
+      - "'controlplane' in group_names"
+      - "'workers' in group_names"
     become: yes
 
   - name: RKE Control Plane VM IPtables Inbound Rules
@@ -25,7 +31,8 @@
       destination_port: "{{ item.port }}"
       ctstate: NEW
       jump: ACCEPT
-    when: "'controlplane' in group_names"
+    when:
+      - "'controlplane' in group_names"
     loop: "{{ control_plane_fw_inbound }}"
     become: yes
 
@@ -36,6 +43,7 @@
       destination_port: "{{ item.port }}"
       ctstate: NEW
       jump: ACCEPT
-    when: "'workers' in group_names"
+    when:
+      - "'workers' in group_names"
     loop: "{{ worker_fw_inbound }}"
     become: yes
