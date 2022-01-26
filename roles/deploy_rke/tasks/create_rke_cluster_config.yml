@@ -4,7 +4,7 @@
   - name: Create RKE Cluster Config (/home/nutanix/rancher-cluster.yml )
     ansible.builtin.template:
       src: templates/cluster.yml.j2
-      dest: /home/nutanix/rancher-cluster.yml
+      dest: /home/nutanix/rke-cluster.yml
       owner: nutanix
       group: nutanix
       mode: '0600'

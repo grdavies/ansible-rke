@@ -23,9 +23,9 @@
       protocol: "tcp"
     - port: "10254"
       protocol: "tcp"
-    - port: "30000-32767"
+    - port: "30000:32767"
       protocol: "tcp"
-    - port: "30000-32767"
+    - port: "30000:32767"
       protocol: "udp"
 
   worker_fw_inbound:
@@ -47,7 +47,7 @@
       protocol: "tcp"
     - port: "10254"
       protocol: "tcp"
-    - port: "30000-32767"
+    - port: "30000:32767"
       protocol: "tcp"
-    - port: "30000-32767"
+    - port: "30000:32767"
       protocol: "udp"
