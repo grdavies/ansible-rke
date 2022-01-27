@@ -1,6 +1,6 @@
 # roles/deploy_rke/tasks/remove_old_docker_versions.yml
 ---
-  - name: "remove package {{ item }}"
+  - name: "remove unneeded packages"
     yum:
       name: "{{ item }}"
       state: absent
