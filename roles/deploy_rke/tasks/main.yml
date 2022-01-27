@@ -2,14 +2,17 @@
   - name: "include {{ network_plugin }} network defaults"
     include_vars: "network-{{ network_plugin }}.yml"
 
-  - name: "configure swap"
-    include_tasks: config_swap.yml
-
-  - name: "configure sysctl"
-    include_tasks: config_sysctl.yml
+  - name: "install chrony"
+    include_tasks: install_chrony.yml
 
   - name: "install docker"
     include_tasks: install_docker.yml
+
+  - name: "disable swap"
+    include_tasks: disable_swap.yml
+
+  - name: "configure sysctl"
+    include_tasks: config_sysctl.yml
 
   - name: "configure kernel modules"
     include_tasks: config_kernel_modules.yml
