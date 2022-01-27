@@ -7,10 +7,3 @@
       line: AllowTcpForwarding yes
     notify: "restart sshd"
     become: yes
-
-  - name: open ssh in firewall
-    firewalld:
-      service: "ssh"
-      permanent: true
-      state: enabled
-    become: yes
