@@ -53,7 +53,7 @@
     loop:
       - {{ rancher_rke_fw_worker_svc.inbound }}
     when:
-      - "'controlplane' in group_names"
+      - "'workers' in group_names"
     become: yes
 
   - name: open inbound worker firewall ports
@@ -64,5 +64,5 @@
     loop:
       - {{ rancher_rke_fw_worker_ports.inbound }}
     when:
-      - "'controlplane' in group_names"
+      - "'workers' in group_names"
     become: yes
