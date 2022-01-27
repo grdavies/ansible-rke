@@ -1,9 +1,5 @@
 # roles/setup_rke_vms/tasks/main.yml
 ---
-  - name: "include {{ network_plugin }} network defaults"
-    include_vars: "network-{{ network_plugin }}.yml"
-    tags: always
-
   - name: "install chrony"
     include_tasks: install_chrony.yml
     tags: always
