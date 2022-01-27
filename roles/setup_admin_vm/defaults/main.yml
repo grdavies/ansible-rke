@@ -3,4 +3,4 @@ rancher_rke_download: "https://github.com/rancher/rke/releases/download/v1.3.5/r
 rancher_rke_checksum: "https://github.com/rancher/rke/releases/download/v1.3.5/sha256sum.txt"
 
 helm_version: v2.8.2
-helm_url: https://storage.googleapis.com/kubernetes-helm/helm-{{ helm_version }}-linux-amd64.tar.gz
+helm_url: "https://storage.googleapis.com/kubernetes-helm/helm-{{ helm_version }}-linux-amd64.tar.gz"
