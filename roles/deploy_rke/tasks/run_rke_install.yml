@@ -5,7 +5,7 @@
     args:
       executable: /bin/bash
 
-  - name: Add kube configuration environment path
+  - name: Add kube configuration to environment path
     lineinfile:
       path: ~/.bashrc
       line: export KUBECONFIG=kube_config_cluster.yml
