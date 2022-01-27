@@ -4,7 +4,8 @@
     shell: /usr/bin/rke up --config ~/rke-cluster.yml
     args:
       executable: /bin/bash
-
+      chdir: ~/
+      
   - name: Add kube configuration to environment path
     lineinfile:
       path: ~/.bashrc
