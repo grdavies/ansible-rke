@@ -48,4 +48,4 @@
 
   - name: install or upgrade tiller
     become: yes
-    shell: "/usr/bin/helm init --upgrade"
+    shell: "/usr/local/bin/helm init --upgrade"
