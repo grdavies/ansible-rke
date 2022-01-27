@@ -1,0 +1,13 @@
+# roles/setup_common/tasks/disable_firewalld.yml
+---
+  - name: stop firewalld
+    become: yes
+    service:
+      name: firewalld
+      state: stopped
+
+  - name: disable firewalld
+    become: yes
+    service:
+      name: firewalld
+      enabled: no

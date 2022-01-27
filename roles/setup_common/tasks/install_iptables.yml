@@ -1,0 +1,21 @@
+# roles/setup_common/tasks/install_iptables.yml
+---
+  - name: install iptables
+    become: yes
+    package:
+      name:
+        - iptables-services
+      state: present
+    when: ansible_pkg_mgr in ('apt', 'yum', 'dnf', 'zypper')
+
+  - name: stop iptables
+    service:
+      name: iptables
+      state: stopped
+    become: yes
+
+  - name: disable iptables
+    service:
+      name: iptables
+      enabled: no
+    become: yes
