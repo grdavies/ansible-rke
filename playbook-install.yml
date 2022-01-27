@@ -9,6 +9,6 @@
     - include_role: {  name: host_prep }
 
   - name: "Deploy/Scale RKE"
-    hosts: admin-vm
+    hosts: admin_vm
     tasks:
     - include_role: {  name: deploy_rke }
