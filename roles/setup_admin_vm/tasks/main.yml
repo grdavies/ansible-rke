@@ -2,15 +2,9 @@
 ---
   - name: "install rke"
     include_tasks: install_rke.yml
-    tags:
-      - always
 
   - name: "install kubectl"
     include_tasks: install_kubectl.yml
-    tags:
-      - always
 
   - name: "install helm"
     include_tasks: install_helm.yml
-    tags:
-      - always
