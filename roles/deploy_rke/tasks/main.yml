@@ -2,13 +2,11 @@
 ---
   - name: "create / update cluster configuration file"
     include_tasks: create_rke_cluster_config.yml
-    tags:
-      - always
+    tags: always
 
   - name: "initialize cluster"
     include_tasks: run_rke_install.yml
-    tags:
-      - install
+    tags: install
 
   - name: "initialize control plane"
     include_tasks: run_rke_scale_controlplane.yml
@@ -18,5 +16,4 @@
 
   - name: "scale workers"
     include_tasks: run_rke_scale_worker.yml
-    tags:
-      - scale_workers
+    tags: scale_workers
