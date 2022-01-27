@@ -36,8 +36,7 @@ nodes:
   port: "{{ port }}"
   internal_address: ""
   role:
-  - controlplane
-  - etcd
+  - worker
   hostname_override: ""
   user: {{ user }}
   docker_socket: {{ docker_socket }}
