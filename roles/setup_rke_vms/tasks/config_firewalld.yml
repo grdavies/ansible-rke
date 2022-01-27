@@ -1,6 +1,7 @@
 # roles/host_prep/tasks/config_firewalld.yml
 ---
   - name: open inbound control plane firewall services
+    become: yes
     firewalld:
       service: "{{ item }}"
       permanent: true
@@ -10,9 +11,9 @@
       - {{ rancher_rke_fw_etcd_svc.inbound }}
     when:
       - "'controlplane' in group_names"
-    become: yes
 
   - name: open inbound control plane firewall ports
+    become: yes
     firewalld:
       port: "{{ item }}"
       permanent: true
@@ -21,9 +22,9 @@
       - {{ rancher_rke_fw_etcd_ports.inbound }}
     when:
       - "'controlplane' in group_names"
-    become: yes
 
   - name: open inbound etcd firewall services
+    become: yes
     firewalld:
       service: "{{ item }}"
       permanent: true
@@ -32,9 +33,9 @@
       - {{ rancher_rke_fw_etcd_svc.inbound }}
     when:
       - "'etcd' in group_names"
-    become: yes
 
   - name: open inbound etcd firewall ports
+    become: yes
     firewalld:
       port: "{{ item }}"
       permanent: true
@@ -43,9 +44,9 @@
       - {{ rancher_rke_fw_etcd_ports.inbound }}
     when:
       - "'etcd' in group_names"
-    become: yes
 
   - name: open inbound worker firewall services
+    become: yes
     firewalld:
       service: "{{ item }}"
       permanent: true
@@ -54,9 +55,9 @@
       - {{ rancher_rke_fw_worker_svc.inbound }}
     when:
       - "'workers' in group_names"
-    become: yes
 
   - name: open inbound worker firewall ports
+    become: yes
     firewalld:
       port: "{{ item }}"
       permanent: true
@@ -65,4 +66,3 @@
       - {{ rancher_rke_fw_worker_ports.inbound }}
     when:
       - "'workers' in group_names"
-    become: yes

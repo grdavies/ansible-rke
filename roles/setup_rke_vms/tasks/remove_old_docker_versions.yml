@@ -1,16 +1,16 @@
 # roles/deploy_rke/tasks/remove_old_docker_versions.yml
 ---
   - name: "remove unneeded packages"
-    yum:
-      name: "{{ item }}"
-      state: absent
-    loop:
-      - "docker"
-      - "docker-client"
-      - "docker-client-latest"
-      - "docker-common"
-      - "docker-latest"
-      - "docker-latest-logrotate"
-      - "docker-logrotate"
-      - "docker-engine"
     become: yes
+    package:
+      name:
+        - "docker"
+        - "docker-client"
+        - "docker-client-latest"
+        - "docker-common"
+        - "docker-latest"
+        - "docker-latest-logrotate"
+        - "docker-logrotate"
+        - "docker-engine"
+      state: absent
+    when: ansible_pkg_mgr in ('apt', 'yum', 'dnf', 'zypper')

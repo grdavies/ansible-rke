@@ -1,6 +1,7 @@
 # roles/host_prep/tasks/config_sysctl.yml
 ---
   - name: Modify sysctl entries
+    become: yes
     sysctl:
       name: '{{ item }}'
       value: '1'
@@ -11,4 +12,3 @@
       - net.bridge.bridge-nf-call-ip6tables
       - net.bridge.bridge-nf-call-iptables
       - net.ipv4.ip_forward
-    become: yes

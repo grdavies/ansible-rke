@@ -1,6 +1,7 @@
 # roles/deploy_rke/tasks/config_kernel_modules.yml
 ---
   name: Add kernel modules as permanent
+  become: yes
   blockinfile:
     path: /etc/modules-load.d/rke.conf
     block: |
@@ -36,9 +37,9 @@
       xt_statistic
       xt_tcpudp
     create: yes
-    become: yes
 
   - name: Load kernel modules for RKE
+    become: yes
     modprobe:
       name: "{{ item }}"
     ignore_errors: yes
@@ -74,4 +75,3 @@
       - xt_set
       - xt_statistic
       - xt_tcpudp
-    become: yes

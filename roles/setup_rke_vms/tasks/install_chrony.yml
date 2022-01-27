@@ -1,12 +1,12 @@
 # roles/deploy_rke/tasks/install_chrony.yml
 ---
   - name: Install chrony
-    yum:
-      name: "{{ item }}"
-      state: latest
-    loop:
-      - "chrony"
     become: yes
+    package:
+      name:
+        - "chrony"
+      state: present
+    when: ansible_pkg_mgr in ('apt', 'yum', 'dnf', 'zypper')
 
   - name: Enable chrony
     service:
