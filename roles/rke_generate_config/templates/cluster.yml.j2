@@ -1,5 +1,5 @@
 nodes:
-{% for controlplane_vm in groups['controlplane'] %}
+{% for controlplane_vm in groups['controlplane_vms'] %}
 - address: {{ controlplane_vm }}
   port: "{{ port }}"
   internal_address: ""
@@ -15,7 +15,7 @@ nodes:
   labels: { {% if dns_provider in ["coredns", "kube-dns"] %}app: dns{% endif %} }
   taints: []
 {% endfor %}
-{% for etcd_vm in groups['etcd'] %}
+{% for etcd_vm in groups['etcd_vms'] %}
 - address: {{ etcd_vm }}
   port: "{{ port }}"
   internal_address: ""
@@ -31,7 +31,7 @@ nodes:
   labels: {}
   taints: []
 {% endfor %}
-{% for worker_vm in groups['workers'] %}
+{% for worker_vm in groups['worker_vms'] %}
 - address: {{ worker_vm }}
   port: "{{ port }}"
   internal_address: ""
