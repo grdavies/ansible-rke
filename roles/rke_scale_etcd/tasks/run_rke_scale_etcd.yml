@@ -4,4 +4,3 @@
     shell: /usr/bin/rke up --config ~/rke-cluster.yml
     args:
       executable: /bin/bash
-      chdir: ~/
