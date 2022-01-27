@@ -1,5 +1,8 @@
 # roles/deploy_rke/tasks/main.yml
 ---
+  - name: "include {{ network_plugin }} network defaults"
+    include_vars: "network-{{ network_plugin }}.yml"
+    
   - name: "create / update cluster configuration file"
     include_tasks: create_rke_cluster_config.yml
     tags: always
