@@ -1,6 +1,7 @@
 # roles/host_prep/tasks/install_helm.yml
 ---
   - name: install unarchive module dependencies (apt, yum, dnf, zypper)
+    become: yes
     package:
       name:
         - tar
@@ -8,35 +9,35 @@
         - gzip
       state: present
     when: ansible_pkg_mgr in ('apt', 'yum', 'dnf', 'zypper')
-    become: yes
 
   - name: download helm
+    become: yes
     get_url:
       url: "{{ helm_url }}"
       checksum: "sha256:{{ helm_checksum }}"
-      dest: "helm_download_dir/helm.tar.gz"
-    become: yes
+      dest: "{{ helm_download_dir }}/helm.tar.gz"
 
   - name: create helm directory
+    become: yes
     file:
       path: "{{ helm_install_dir }}"
       state: directory
-    become: yes
 
   - name: install helm
+    become: yes
     unarchive:
-      src: /tmp/helm.tar.gz
+      src: "{{ helm_download_dir }}/helm.tar.gz"
       remote_src: yes
-      dest: "{{ helm_install_dir }}/helm"
+      dest: "{{ helm_install_dir }}"
       extra_opts:
         - "--strip-components=1"
       owner: root
       group: root
       mode: 'o-w'
-    become: yes
-    creates: '{{ helm_install_dir }}/helm'
+      creates: '{{ helm_install_dir }}/helm'
 
   - name: create helm link
+    become: yes
     file:
       src: "{{ helm_install_dir }}/helm"
       dest: "/usr/local/bin/helm"
@@ -44,8 +45,7 @@
       owner: root
       group: root
       mode: 0755
-    become: yes
 
   - name: install or upgrade tiller
-    shell: "/usr/bin/helm init --upgrade"
     become: yes
+    shell: "/usr/bin/helm init --upgrade"
