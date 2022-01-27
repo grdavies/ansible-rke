@@ -1,0 +1,16 @@
+# roles/deploy_rke/tasks/remove_old_docker_versions.yml
+---
+  - name: "remove package {{ item }}"
+    yum:
+      name: "{{ item }}"
+      state: absent
+    loop:
+      - "docker"
+      - "docker-client"
+      - "docker-client-latest"
+      - "docker-common"
+      - "docker-latest"
+      - "docker-latest-logrotate"
+      - "docker-logrotate"
+      - "docker-engine"
+    become: yes
