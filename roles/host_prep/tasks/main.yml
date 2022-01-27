@@ -13,9 +13,6 @@
   - name: "Configure SSHD"
     include_tasks: config_sshd.yml
 
-  - name: "Configure Kernel Modules"
-    include_tasks: config_kernel_modules.yml
-
   - name: "Configure Swap"
     include_tasks: config_swap.yml
 
