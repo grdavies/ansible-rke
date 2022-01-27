@@ -3,8 +3,8 @@
   - name: "configure selinux"
     include_tasks: config_selinux.yml
 
-  - name: "configure firewalld"
-    include_tasks: config_firewalld.yml
+  # - name: "configure firewalld"
+  #   include_tasks: config_firewalld.yml
 
   - name: "configure sshd"
     include_tasks: config_sshd.yml
