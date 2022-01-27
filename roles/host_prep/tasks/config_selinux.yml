@@ -5,3 +5,7 @@
       policy: targeted
       state: permissive
     become: yes
+
+  - name: put selinux in permissive mode
+    shell: "setenforce 0"
+    become: yes
