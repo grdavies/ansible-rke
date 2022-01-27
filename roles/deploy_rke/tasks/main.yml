@@ -2,7 +2,8 @@
 ---
   - name: "include {{ network_plugin }} network defaults"
     include_vars: "network-{{ network_plugin }}.yml"
-    
+    tags: always
+
   - name: "create / update cluster configuration file"
     include_tasks: create_rke_cluster_config.yml
     tags: always
