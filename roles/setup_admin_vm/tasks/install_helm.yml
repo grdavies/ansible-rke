@@ -10,7 +10,7 @@
   - name: install helm
     unarchive:
       src: /tmp/helm.tar.gz
-      dest: /usr/bin
+      dest: /usr/bin/helm
       owner: root
       group: root
       mode: 0755
