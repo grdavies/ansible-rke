@@ -6,9 +6,7 @@
       service: "{{ item }}"
       permanent: true
       state: enabled
-    loop:
-      - {{ rancher_rke_fw_controlplane_svc.inbound }}
-      - {{ rancher_rke_fw_etcd_svc.inbound }}
+    with_items: "{{ rancher_rke_fw_controlplane_svc.inbound }}"
     when:
       - "'controlplane' in group_names"
 
@@ -18,8 +16,7 @@
       port: "{{ item }}"
       permanent: true
       state: enabled
-    loop:
-      - {{ rancher_rke_fw_etcd_ports.inbound }}
+    with_items: "{{ rancher_rke_fw_controlplane_ports.inbound }}"
     when:
       - "'controlplane' in group_names"
 
@@ -29,8 +26,7 @@
       service: "{{ item }}"
       permanent: true
       state: enabled
-    loop:
-      - {{ rancher_rke_fw_etcd_svc.inbound }}
+    with_items: "{{ rancher_rke_fw_etcd_svc.inbound }}"
     when:
       - "'etcd' in group_names"
 
@@ -40,8 +36,7 @@
       port: "{{ item }}"
       permanent: true
       state: enabled
-    loop:
-      - {{ rancher_rke_fw_etcd_ports.inbound }}
+    with_items: "{{ rancher_rke_fw_etcd_ports.inbound }}"
     when:
       - "'etcd' in group_names"
 
@@ -51,8 +46,7 @@
       service: "{{ item }}"
       permanent: true
       state: enabled
-    loop:
-      - {{ rancher_rke_fw_worker_svc.inbound }}
+    with_items: "{{ rancher_rke_fw_worker_svc.inbound }}"
     when:
       - "'workers' in group_names"
 
@@ -62,7 +56,6 @@
       port: "{{ item }}"
       permanent: true
       state: enabled
-    loop:
-      - {{ rancher_rke_fw_worker_ports.inbound }}
+    with_items: "{{ rancher_rke_fw_worker_ports.inbound }}"
     when:
       - "'workers' in group_names"
