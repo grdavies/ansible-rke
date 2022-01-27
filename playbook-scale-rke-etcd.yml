@@ -1,6 +1,6 @@
 ---
   - name: "Common Setup for all servers"
-    hosts: all
+    hosts: etcd_vms
     roles:
       - setup_common
 
@@ -10,11 +10,16 @@
       - setup_admin_vm
 
   - name: "Setup RKE servers"
-    hosts: controlplane:etcd:workers
+    hosts: etcd_vms
     roles:
       - setup_rke_vms
 
-  - name: "Deploy/Scale RKE"
+  - name: "Generate RKE Configuration"
     hosts: admin_vm
     roles:
-      - deploy_rke
+      - rke_generate_config
+
+  - name: "Scale RKE ETCD"
+    hosts: admin_vm
+    roles:
+      - rke_scale_etcd

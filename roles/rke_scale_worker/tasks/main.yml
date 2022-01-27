@@ -1,0 +1,4 @@
+# roles/rke_scale_worker/tasks/main.yml
+---
+  - name: "scale workers"
+    include_tasks: run_rke_scale_worker.yml

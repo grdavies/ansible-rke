@@ -1,0 +1,4 @@
+# roles/rke_scale_etcd/tasks/main.yml
+---
+  - name: "scale etcd"
+    include_tasks: run_rke_scale_etcd.yml

@@ -1,0 +1,17 @@
+# roles/host_prep/tasks/config_firewalld.yml
+---
+  - name: open inbound etcd firewall services
+    become: yes
+    firewalld:
+      service: "{{ item }}"
+      permanent: true
+      state: enabled
+    with_items: "{{ rancher_rke_fw_etcd_svc.inbound }}"
+
+  - name: open inbound etcd firewall ports
+    become: yes
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      state: enabled
+    with_items: "{{ rancher_rke_fw_etcd_ports.inbound }}"

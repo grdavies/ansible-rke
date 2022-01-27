@@ -1,0 +1,4 @@
+# roles/rke_scale_ctrl/tasks/main.yml
+---
+  - name: "scale control plane"
+    include_tasks: run_rke_scale_controlplane.yml

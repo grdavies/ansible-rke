@@ -2,36 +2,36 @@
 ---
   - name: "install chrony"
     include_tasks: install_chrony.yml
-    tags: always
 
   - name: "remove any old docker versions"
     include_tasks: remove_old_docker_versions.yml
-    tags: always
 
   - name: "install docker"
     include_tasks: install_docker.yml
-    tags: always
 
   - name: "configure docker"
     include_tasks: config_docker.yml
-    tags: always
 
   - name: "disable swap"
     include_tasks: disable_swap.yml
-    tags: always
 
   - name: "configure sysctl"
     include_tasks: config_sysctl.yml
-    tags: always
 
   - name: "configure kernel modules"
     include_tasks: config_kernel_modules.yml
-    tags: always
 
   - name: "install packages for nutanix csi driver"
     include_tasks: install_csi_packages.yml
-    tags: always
 
-  - name: "configure firewall"
-    include_tasks: config_firewalld.yml
-    tags: always
+  - name: "configure controlplane firewall"
+    include_tasks: config_firewalld_controlplane.yml
+    when: "'controlplane_vms' in group_names"
+
+  - name: "configure etcd firewall"
+    include_tasks: config_firewalld_etcd.yml
+    when: "'etcd_vms' in group_names"
+
+  - name: "configure worker firewall"
+    include_tasks: config_firewalld_worker.yml
+    when: "'worker_vms' in group_names"

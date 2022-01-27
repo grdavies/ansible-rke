@@ -1,0 +1,25 @@
+---
+  - name: "Common Setup for all servers"
+    hosts: all
+    roles:
+      - setup_common
+
+  - name: "Setup admin server"
+    hosts: admin_vm
+    roles:
+      - setup_admin_vm
+
+  - name: "Setup RKE servers"
+    hosts: controlplane_vms:etcd_vms:worker_vms
+    roles:
+      - setup_rke_vms
+
+  - name: "Generate RKE Configuration"
+    hosts: admin_vm
+    roles:
+      - rke_generate_config
+
+  - name: "Deploy RKE Cluster"
+    hosts: admin_vm
+    roles:
+      - rke_deploy

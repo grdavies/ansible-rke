@@ -1,0 +1,7 @@
+# roles/deploy_rke/tasks/create_rke_cluster_config.yml
+---
+  - name: invoke rke to scale etcd nodes
+    shell: /usr/bin/rke up --config ~/rke-cluster.yml
+    args:
+      executable: /bin/bash
+      chdir: ~/

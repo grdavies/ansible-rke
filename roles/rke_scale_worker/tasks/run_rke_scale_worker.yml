@@ -1,0 +1,7 @@
+# roles/deploy_rke/tasks/run_rke_scale_worker.yml
+---
+  - name: invoke rke to scale worker nodes
+    shell: /usr/bin/rke up --update-only --config ~/rke-cluster.yml
+    args:
+      executable: /bin/bash
+      chdir: ~/
