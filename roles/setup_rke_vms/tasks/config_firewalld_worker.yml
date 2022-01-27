@@ -1,4 +1,4 @@
-# roles/host_prep/tasks/config_firewalld.yml
+# roles/setup_rke_vms/tasks/config_kernel_modules.yml
 ---
   - name: open inbound worker firewall services
     become: yes

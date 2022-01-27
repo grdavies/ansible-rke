@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/config_docker_daemon.yml
+# roles/setup_rke_vms/tasks/config_docker.yml
 ---
   - name: /etc/docker/daemon.json
     become: yes

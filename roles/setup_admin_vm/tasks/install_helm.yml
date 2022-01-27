@@ -1,4 +1,4 @@
-# roles/host_prep/tasks/install_helm.yml
+# roles/setup_admin_vm/tasks/install_helm.yml
 ---
   - name: install unarchive module dependencies (apt, yum, dnf, zypper)
     become: yes

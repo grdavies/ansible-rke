@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/disable_firewalld.yml
+# roles/setup_rke_vms/tasks/disable_firewalld.yml
 ---
   - name: stop firewalld
     become: yes

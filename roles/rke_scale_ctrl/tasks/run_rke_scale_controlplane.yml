@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/create_rke_cluster_config.yml
+# roles/rke_scale_ctrl/tasks/run_rke_scale_controlplane.yml
 ---
   - name: invoke rke to scale controlplane nodes
     shell: /usr/bin/rke up --config ~/rke-cluster.yml

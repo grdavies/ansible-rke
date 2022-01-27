@@ -1,4 +1,4 @@
-# roles/rke_install/tasks/run_rke_install.yml
+# roles/rke_deploy/tasks/main.yml
 ---
   - name: "initialize cluster"
     include_tasks: run_rke_install.yml

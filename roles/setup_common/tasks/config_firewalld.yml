@@ -1,4 +1,4 @@
-# roles/host_prep/tasks/config_firewalld.yml
+# roles/setup_common/tasks/config_firewalld.yml
 ---
   - name: install firewalld
     yum:

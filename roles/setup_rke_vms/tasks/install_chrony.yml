@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/install_chrony.yml
+# roles/setup_rke_vms/tasks/install_chrony.yml
 ---
   - name: Install chrony
     become: yes

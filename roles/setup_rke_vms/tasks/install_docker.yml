@@ -1,4 +1,4 @@
-# roles/host_prep/tasks/install_kubectl.yml
+# roles/setup_rke_vms/tasks/install_docker.yml
 ---
   - name: add docker-ce yum repo
     yum_repository:

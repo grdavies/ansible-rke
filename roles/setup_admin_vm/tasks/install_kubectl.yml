@@ -1,4 +1,4 @@
-# roles/host_prep/tasks/install_kubectl.yml
+# roles/setup_admin_vm/tasks/install_kubectl.yml
 ---
   - name: add kubernetes yum repo
     yum_repository:

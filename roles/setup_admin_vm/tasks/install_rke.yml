@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/get_rke.yml
+# roles/setup_admin_vm/tasks/install_rke.yml
 ---
   - name: Download Rancher RKE
     get_url:

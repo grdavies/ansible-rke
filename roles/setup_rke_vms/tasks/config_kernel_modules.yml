@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/config_kernel_modules.yml
+# roles/setup_rke_vms/tasks/config_kernel_modules.yml
 ---
   - name: Add kernel modules as permanent
     become: yes

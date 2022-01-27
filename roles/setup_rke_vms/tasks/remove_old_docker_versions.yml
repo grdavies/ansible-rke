@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/remove_old_docker_versions.yml
+# roles/setup_rke_vms/tasks/remove_old_docker_versions.yml
 ---
   - name: "remove unneeded packages"
     become: yes

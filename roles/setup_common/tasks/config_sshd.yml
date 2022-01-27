@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/configure_sshd_config.yml
+# roles/setup_common/tasks/config_sshd.yml
 ---
   - name: enable allowtcpforwarding for ssh
     lineinfile:

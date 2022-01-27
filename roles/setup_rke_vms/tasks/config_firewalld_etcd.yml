@@ -1,4 +1,4 @@
-# roles/host_prep/tasks/config_firewalld.yml
+# roles/setup_rke_vms/tasks/config_firewalld_etcd.yml
 ---
   - name: open inbound etcd firewall services
     become: yes

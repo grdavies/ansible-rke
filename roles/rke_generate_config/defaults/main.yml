@@ -1,4 +1,4 @@
-# roles/deploy_rke/defaults/main.yml
+# roles/rke_generate_config/defaults/main.yml
 port: 22
 user: nutanix
 docker_socket: /var/run/docker.sock

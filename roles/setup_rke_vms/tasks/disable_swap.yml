@@ -1,4 +1,4 @@
-# roles/host_prep/tasks/config_swap.yml
+# roles/setup_rke_vms/tasks/disable_swap.yml
 ---
   - name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
     become: yes

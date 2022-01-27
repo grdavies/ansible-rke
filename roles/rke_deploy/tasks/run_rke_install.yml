@@ -1,11 +1,11 @@
-# roles/deploy_rke/tasks/create_rke_cluster_config.yml
+# roles/rke_deploy/tasks/run_rke_install.yml
 ---
-  - name: Initialize Cluster
+  - name: deploy rke cluster from generated config ~/rke-cluster.yml
     shell: /usr/bin/rke up --config ~/rke-cluster.yml
     args:
       executable: /bin/bash
-      
-  - name: Add kube configuration to environment path
+
+  - name: add kube configuration to environment path
     lineinfile:
       path: ~/.bashrc
       line: export KUBECONFIG=kube_config_cluster.yml

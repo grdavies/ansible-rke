@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/install_iptables.yml
+# roles/setup_rke_vms/tasks/install_iptables.yml
 ---
   - name: install iptables
     become: yes

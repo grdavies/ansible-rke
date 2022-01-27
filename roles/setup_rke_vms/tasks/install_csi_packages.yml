@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/install_csi_packages.yml
+# roles/setup_rke_vms/tasks/install_csi_packages.yml
 ---
   - name: install iscsi-initiator-utils & nfs-utils
     become: yes

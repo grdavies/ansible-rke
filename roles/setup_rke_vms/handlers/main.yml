@@ -1,4 +1,4 @@
-# roles/deploy_rke/handlers/main.yml
+# roles/setup_rke_vms/handlers/main.yml
 ---
   - name: Restart docker service
     service:

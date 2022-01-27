@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/create_rke_config.yml
+# roles/rke_generate_config/tasks/create_rke_cluster_config.yml
 ---
 
   - name: Create RKE Cluster Config (/home/nutanix/rancher-cluster.yml )

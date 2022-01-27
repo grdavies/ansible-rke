@@ -1,4 +1,4 @@
-# roles/host_prep/tasks/config_sysctl.yml
+# roles/setup_rke_vms/tasks/config_sysctl.yml
 ---
   - name: Modify sysctl entries
     become: yes
