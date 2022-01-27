@@ -3,6 +3,18 @@
   - name: "install chrony"
     include_tasks: install_chrony.yml
 
+  # - name: "configure controlplane firewall"
+  #   include_tasks: config_firewalld_controlplane.yml
+  #   when: "'controlplane_vms' in group_names"
+  #
+  # - name: "configure etcd firewall"
+  #   include_tasks: config_firewalld_etcd.yml
+  #   when: "'etcd_vms' in group_names"
+  #
+  # - name: "configure worker firewall"
+  #   include_tasks: config_firewalld_worker.yml
+  #   when: "'worker_vms' in group_names"
+
   - name: "remove any old docker versions"
     include_tasks: remove_old_docker_versions.yml
 
@@ -23,15 +35,3 @@
 
   - name: "install packages for nutanix csi driver"
     include_tasks: install_csi_packages.yml
-
-  - name: "configure controlplane firewall"
-    include_tasks: config_firewalld_controlplane.yml
-    when: "'controlplane_vms' in group_names"
-
-  - name: "configure etcd firewall"
-    include_tasks: config_firewalld_etcd.yml
-    when: "'etcd_vms' in group_names"
-
-  - name: "configure worker firewall"
-    include_tasks: config_firewalld_worker.yml
-    when: "'worker_vms' in group_names"

@@ -8,3 +8,9 @@
 
   - name: "configure sshd"
     include_tasks: config_sshd.yml
+
+  - name: "disable firewalld"
+    include_tasks: disable_firewalld.yml
+
+  - name: "install iptables"
+    include_tasks: install_iptables.yml
