@@ -2,10 +2,11 @@
 ---
   - name: add docker-ce yum repo
     yum_repository:
-      name: docker-ce
-      description: docker-ce YUM repo
-      baseurl: https://download.docker.com/linux/centos/docker-ce.repo
-      gpgcheck: no
+      name: docker-ce-stable
+      description: Docker CE Stable Repo
+      baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+      gpgkey: https://download.docker.com/linux/centos/gpg
+      gpgcheck: yes
       enabled: yes
     become: yes
 
