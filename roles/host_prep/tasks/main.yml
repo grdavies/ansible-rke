@@ -12,9 +12,3 @@
 
   - name: "Configure SSHD"
     include_tasks: config_sshd.yml
-
-  - name: "Configure Swap"
-    include_tasks: config_swap.yml
-
-  - name: "Configure Sysctl"
-    include_tasks: config_sysctl.yml
