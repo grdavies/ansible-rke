@@ -2,9 +2,13 @@
 ---
   - name: Add kernel modules as permanent
     become: yes
-    template: 'templates/rke-kernel_module.conf.j2'
-    dest: '/etc/modules-load.d/rke-kernel_module.conf'
-  
+    template:
+      src: 'templates/rke-kernel_module.conf.j2'
+      dest: '/etc/modules-load.d/rke-kernel_module.conf'
+      owner: root
+      group: root
+      mode: '0644'
+
   - name: Load kernel modules for RKE
     become: yes
     modprobe:
