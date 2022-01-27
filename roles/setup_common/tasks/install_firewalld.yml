@@ -1,0 +1,7 @@
+# roles/setup_common/tasks/install_firewalld.yml
+---
+  - name: install firewalld
+    yum:
+      name: "firewalld"
+      state: latest
+    become: yes

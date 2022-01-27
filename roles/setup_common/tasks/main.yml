@@ -3,9 +3,6 @@
   - name: "configure selinux"
     include_tasks: config_selinux.yml
 
-  # - name: "configure firewalld"
-  #   include_tasks: config_firewalld.yml
-
   - name: "configure sshd"
     include_tasks: config_sshd.yml
 
@@ -14,3 +11,9 @@
 
   - name: "install iptables"
     include_tasks: install_iptables.yml
+
+  # - name: "install firewalld"
+  #   include_tasks: install_firewalld.yml
+
+  # - name: "configure firewalld"
+  #   include_tasks: config_firewalld.yml

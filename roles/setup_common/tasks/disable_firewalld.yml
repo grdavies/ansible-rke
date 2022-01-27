@@ -1,13 +1,22 @@
 # roles/setup_common/tasks/disable_firewalld.yml
 ---
+  - name: "Check if firewalld package is installed"
+    package:
+      name: "firewalld"
+      state: present
+    check_mode: true
+    register: firewalld_check
+
   - name: stop firewalld
     become: yes
     service:
       name: firewalld
       state: stopped
+    when: firewalld_check is succeeded
 
   - name: disable firewalld
     become: yes
     service:
       name: firewalld
       enabled: no
+    when: firewalld_check is succeeded
