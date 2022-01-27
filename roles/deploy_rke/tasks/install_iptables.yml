@@ -1,0 +1,21 @@
+# roles/deploy_rke/tasks/install_iptables.yml
+---
+  - name: install iptables
+    yum:
+      name: "{{ item }}"
+      state: latest
+    loop:
+      - "iptables-services"
+    become: yes
+
+  - name: stop iptables
+    service:
+      name: iptables
+      state: stopped
+    become: yes
+
+  - name: disable iptables
+    service:
+      name: iptables
+      enabled: no
+    become: yes
