@@ -1,0 +1,49 @@
+rancher_rke_fw_controlplane_svc:
+  inbound:
+    - "http"
+    - "https"
+    - "ssh"
+  outbound:
+
+rancher_rke_fw_controlplane_ports:
+  inbound:
+    - "2376/tcp"
+    - "6443/tcp"
+    - "8472/udp"
+    - "9099/tcp"
+    - "10250/tcp"
+    - "10254/tcp"
+    - "30000-32767/tcp"
+  outbound:
+
+rancher_rke_fw_etcd_svc:
+  inbound:
+    - "ssh"
+  outbound:
+
+rancher_rke_fw_etcd_ports:
+  inbound:
+    - "2376/tcp"
+    - "2379/tcp"
+    - "2380/tcp"
+    - "8472/udp"
+    - "9099/tcp"
+    - "10250/tcp"
+  outbound:
+
+rancher_rke_fw_worker_svc:
+  inbound:
+    - "http"
+    - "https"
+    - "ssh"
+  outbound:
+
+rancher_rke_fw_worker_ports:
+  inbound:
+    - "2376/tcp"
+    - "8472/udp"
+    - "9099/tcp"
+    - "10250/tcp"
+    - "10254/tcp"
+    - "30000-32767/tcp"
+  outbound:

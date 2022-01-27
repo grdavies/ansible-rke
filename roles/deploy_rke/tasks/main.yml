@@ -1,33 +1,9 @@
 # roles/deploy_rke/tasks/main.yml
-  - name: "include {{ network_plugin }} network defaults"
-    include_vars: "network-{{ network_plugin }}.yml"
-
-  - name: "install chrony"
-    include_tasks: install_chrony.yml
-
-  - name: "install docker"
-    include_tasks: install_docker.yml
-
-  - name: "disable swap"
-    include_tasks: disable_swap.yml
-
-  - name: "configure sysctl"
-    include_tasks: config_sysctl.yml
-
-  - name: "configure kernel modules"
-    include_tasks: config_kernel_modules.yml
-
-  - name: "install packages for nutanix csi driver"
-    include_tasks: install_csi_packages.yml
-
-  - name: "configure firewall"
-    include_tasks: config_firewalld.yml
-
-  - name: "download rke"
-    include_tasks: install_rke.yml
-
+---
   - name: "create / update cluster configuration file"
     include_tasks: create_rke_cluster_config.yml
+    tags:
+      - always
 
   - name: "initialize cluster"
     include_tasks: run_rke_install.yml

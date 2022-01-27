@@ -1,8 +1,8 @@
 # roles/deploy_rke/handlers/main.yml
 ---
-  - name: Restart docker service
+  - name: Restart sshd service
     service:
-      name: docker
+      name: sshd
       state: restarted
-    listen: "restart docker service"
+    listen: "restart sshd"
     become: yes

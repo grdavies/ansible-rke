@@ -1,0 +1,13 @@
+# roles/deploy_rke/tasks/disable_firewalld.yml
+---
+  - name: stop firewalld
+    service:
+      name: firewalld
+      state: stopped
+    become: yes
+
+  - name: disable firewalld
+    service:
+      name: firewalld
+      enabled: no
+    become: yes

@@ -3,10 +3,20 @@
 # ansible-playbook site.yml -i inventory -e cluster_name="test_cluster" -t download
 # ansible-playbook site.yml -i inventory -c paramiko -e cluster_name="test_cluster" -t download
 
-  - name: "Host Preparation"
+  - name: "Common Setup for all servers"
     hosts: all
     tasks:
-    - include_role: {  name: host_prep }
+    - include_role: {  name: setup_common }
+
+  - name: "Setup admin server"
+    hosts: admin_vm
+    tasks:
+    - include_role: {  name: setup_admin_vm }
+
+  - name: "Setup RKE servers"
+    hosts: controlplane:etcd:workers
+    tasks:
+    - include_role: {  name: setup_rke_vms }
 
   - name: "Deploy/Scale RKE"
     hosts: admin_vm

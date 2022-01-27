@@ -1,0 +1,16 @@
+# roles/setup_common/tasks/main.yml
+---
+  - name: "configure selinux"
+    include_tasks: config_selinux.yml
+    tags:
+      - always
+
+  - name: "configure firewalld"
+    include_tasks: config_firewalld.yml
+    tags:
+      - always
+
+  - name: "configure sshd"
+    include_tasks: config_sshd.yml
+    tags:
+      - always
