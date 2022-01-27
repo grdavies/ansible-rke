@@ -12,7 +12,7 @@
     include_tasks: run_rke_install.yml
     tags: install
 
-  - name: "initialize control plane"
+  - name: "scale control plane"
     include_tasks: run_rke_scale_controlplane.yml
     tags:
       - scale_controlplane
