@@ -1,0 +1,21 @@
+# roles/deploy_rke/tasks/install_chrony.yml
+---
+  - name: Install chrony
+    yum:
+      name: "{{ item }}"
+      state: latest
+    loop:
+      - "chrony"
+    become: yes
+
+  - name: Enable chrony
+    service:
+      name: chronyd
+      enabled: yes
+    become: yes
+
+  - name: Start chrony
+    service:
+      name: chronyd
+      state: started
+    become: yes
