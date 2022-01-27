@@ -8,12 +8,8 @@
       group: root
       mode: 0755
     remote_src: yes
-    when:
-      - "'admin_vm' in group_names"
     become: yes
 
   - name: install or upgrade tiller
     shell: "/usr/bin/helm init --upgrade"
-    when:
-      - "'admin_vm' in group_names"
     become: yes
