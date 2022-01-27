@@ -3,18 +3,22 @@
     hosts: all
     tasks:
       - include_role: {  name: setup_common }
+    tags: always
 
   - name: "Setup admin server"
     hosts: admin_vm
     tasks:
       - include_role: {  name: setup_admin_vm }
+    tags: always
 
   - name: "Setup RKE servers"
     hosts: controlplane:etcd:workers
     tasks:
       - include_role: {  name: setup_rke_vms }
+    tags: always
 
   - name: "Deploy/Scale RKE"
     hosts: admin_vm
     tasks:
       - include_role: {  name: deploy_rke }
+    tags: always
