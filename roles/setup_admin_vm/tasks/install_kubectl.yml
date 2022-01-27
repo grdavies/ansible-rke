@@ -10,9 +10,13 @@
       repo_gpgcheck: yes
       enabled: yes
     become: yes
+    tags:
+      - always
 
   - name: install the latest version of kubectl
     yum:
       name: kubectl
       state: latest
     become: yes
+    tags:
+      - always
