@@ -1,4 +1,4 @@
-# roles/deploy_rke/tasks/main.yml
+# roles/rke_generate_config/tasks/main.yml
 ---
   - name: "include {{ network_plugin }} network defaults"
     include_vars: "network-{{ network_plugin }}.yml"
@@ -7,17 +7,3 @@
   - name: "generate cluster configuration file"
     include_tasks: create_rke_cluster_config.yml
     tags: always
-
-  - name: "initialize cluster"
-    include_tasks: run_rke_install.yml
-    tags: install
-
-  - name: "scale control plane"
-    include_tasks: run_rke_scale_controlplane.yml
-    tags:
-      - scale_controlplane
-      - scale_etcd
-
-  - name: "scale workers"
-    include_tasks: run_rke_scale_worker.yml
-    tags: scale_workers
