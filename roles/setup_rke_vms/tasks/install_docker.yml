@@ -38,7 +38,3 @@
       group: docker
       append: yes
     become: yes
-
-  - name: Get docker version
-    shell: docker version
-    become: yes
