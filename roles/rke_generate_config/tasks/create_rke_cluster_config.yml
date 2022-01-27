@@ -1,7 +1,7 @@
 # roles/rke_generate_config/tasks/create_rke_cluster_config.yml
 ---
 
-  - name: Create RKE Cluster Config (/home/nutanix/rancher-cluster.yml )
+  - name: Create RKE Cluster Config (/home/nutanix/rke-cluster.yml)
     ansible.builtin.template:
       src: templates/cluster.yml.j2
       dest: /home/nutanix/rke-cluster.yml
