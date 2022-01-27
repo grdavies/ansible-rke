@@ -38,8 +38,9 @@
     include_tasks: run_rke_scale_controlplane.yml
     tags:
       - scale_controlplane
+      - scale_etcd
 
   - name: "scale workers"
     include_tasks: run_rke_scale_worker.yml
     tags:
-      - scale_worker
+      - scale_workers
