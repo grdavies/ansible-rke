@@ -6,7 +6,7 @@ metadata:
         storageclass.kubernetes.io/is-default-class: {% if default_class == "files" %}"true"{% else %}"false"{% endif %}
 provisioner: csi.nutanix.com
 parameters:
-    nfsServer: {{ filesNfsServer }}
+    nfsServer: {{ filesNfsServerName }}
     nfsPath: {{ filesNfsPath }}
     storageType: NutanixFiles
 reclaimPolicy: {{ filesReclaimPolicy }}
