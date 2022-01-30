@@ -56,17 +56,17 @@
       owner: nutanix
       group: nutanix
       mode: '0600'
-    when: volumesClass == true
+    when: volumesClass
 
   - name: set fact volumes_include_path
     set_fact:
       volumes_include_path: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml"
-    when: volumesClass == true
+    when: volumesClass
 
   - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
     set_fact:
       addons_include: "{{ addons_include + [ volumes_include_path ] }}"
-    when: volumesClass == true
+    when: volumesClass
 
   - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files.yaml"
     ansible.builtin.template:
@@ -75,17 +75,17 @@
       owner: nutanix
       group: nutanix
       mode: '0600'
-    when: filesClass == true
+    when: filesClass
 
   - name: set fact files_include_path
     set_fact:
       files_include_path: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files.yaml"
-    when: filesClass == true
+    when: filesClass
 
   - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
     set_fact:
       addons_include: "{{ addons_include + [ files_include_path ] }}"
-    when: filesClass == true
+    when: filesClass
 
   - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files-dynamic.yaml"
     ansible.builtin.template:
@@ -94,14 +94,14 @@
       owner: nutanix
       group: nutanix
       mode: '0600'
-    when: filesDynamicClass == true
+    when: filesDynamicClass
 
   - name: set fact files_dynamic_include_path
     set_fact:
       files_dynamic_include_path: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files-dynamic.yaml"
-    when: filesDynamicClass == true
+    when: filesDynamicClass
 
   - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
     set_fact:
       addons_include: "{{ addons_include + [ files_dynamic_include_path ] }}"
-    when: filesDynamicClass == true
+    when: filesDynamicClass
