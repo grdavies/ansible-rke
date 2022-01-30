@@ -3,7 +3,7 @@ apiVersion: storage.k8s.io/v1
 metadata:
     name: "{{ filesDynamicClassName }}"
     annotations:
-        storageclass.kubernetes.io/is-default-class: {% if default_class == "files-dynamic" %}"true"{% else %}"false"{% endif %}
+        storageclass.kubernetes.io/is-default-class: {% if defaultStorageClass == "files-dynamic" %}"true"{% else %}"false"{% endif %}
 provisioner: csi.nutanix.com
 parameters:
     dynamicProv: ENABLED
