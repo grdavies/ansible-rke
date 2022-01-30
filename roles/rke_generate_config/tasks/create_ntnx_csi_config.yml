@@ -48,3 +48,45 @@
       owner: nutanix
       group: nutanix
       mode: '0600'
+
+  - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-sc-volumes.yaml
+      dest: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+    when: volumesClass == true
+
+  - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
+    set_fact:
+      addons_include: "{{ addons_include + [ "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" ]}}"
+    when: volumesClass == true
+
+  - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-sc-files.yaml
+      dest: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+    when: filesClass == true
+
+  - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
+    set_fact:
+      addons_include: "{{ addons_include + [ "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files.yaml" ]}}"
+    when: filesClass == true
+
+  - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files-dynamic.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-sc-files-dynamic.yaml
+      dest: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files-dynamic.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+    when: filesDynamicClass == true
+
+  - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
+    set_fact:
+      addons_include: "{{ addons_include + [ "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files-dynamic.yaml" ]}}"
+    when: filesDynamicClass == true

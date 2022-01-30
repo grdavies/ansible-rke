@@ -1,0 +1,15 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+    name: "{{ filesDynamicClassName }}"
+    annotations:
+        storageclass.kubernetes.io/is-default-class: {% if default_class == "files-dynamic" %}"true"{% else %}"false"{% endif %}
+provisioner: csi.nutanix.com
+parameters:
+    dynamicProv: ENABLED
+    nfsServerName: {{ filesNfsServer }}
+    nfsPath: {{ filesNfsPath 
+    csi.storage.k8s.io/provisioner-secret-name: "{{ secret_name }}"
+    csi.storage.k8s.io/provisioner-secret-namespace: "{{ namespace }}"
+    storageType: NutanixFiles
+reclaimPolicy: {{ filesReclaimPolicy }}
