@@ -1,0 +1,51 @@
+# roles/rke_generate_config/tasks/create_ntnx_csi_config.yml
+---
+  - name: create csi config dir
+    file:
+      path: "{{ ntnx_csi_conf_dir }}"
+      state: directory
+
+  - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-rbac.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-rbac.yaml
+      dest: "{{ ntnx_csi_conf_dir }}/ntnx-csi-rbac.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-node.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-node.yaml
+      dest: "{{ ntnx_csi_conf_dir }}/ntnx-csi-node.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-provisioner.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-provisioner.yaml
+      dest: "{{ ntnx_csi_conf_dir }}/ntnx-csi-provisioner.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnx_csi_conf_dir }}/csi-driver.yaml"
+    ansible.builtin.template:
+      src: templates/csi-driver.yaml
+      dest: "{{ ntnx_csi_conf_dir }}/csi-driver.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate b64 encoded string for secret
+    set_fact:
+      auth_string: "{{ nutanix_pe_ip_address }}:{{ nutanix_pe_username }}:{{ nutanix_pe_password }}"
+      auth_string_b64: "{{ secret_string | b64encode}}"
+
+  - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-secret.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-secret.yaml
+      dest: "{{ ntnx_csi_conf_dir }}/ntnx-csi-secret.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
