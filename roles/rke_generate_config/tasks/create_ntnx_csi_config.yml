@@ -106,6 +106,6 @@
       addons_include: "{{ addons_include + [ files_dynamic_include_path ] }}"
     when: filesDynamicClass
 
-- debug:
-    var: addons_include
-    verbosity: 2
+  - debug:
+      var: addons_include
+      verbosity: 2
