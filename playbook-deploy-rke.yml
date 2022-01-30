@@ -14,12 +14,9 @@
     roles:
       - setup_rke_vms
 
-  - name: "Generate RKE Configuration"
+  - name: "Deploy RKE"
     hosts: admin_vm
     roles:
       - rke_generate_config
-
-  - name: "Deploy RKE Cluster"
-    hosts: admin_vm
-    roles:
       - rke_deploy
+      - ntnx_csi_driver_deploy

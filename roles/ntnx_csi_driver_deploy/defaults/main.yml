@@ -1,0 +1,36 @@
+# roles/ntnx_csi_driver_deploy/defaults/main.yml
+kubeconfig: "~/kube_config_rke-cluster.yml"
+
+# storage class config
+ntnx_pe_ip: ""
+ntnx_pe_dataservice_ip: ""
+ntnx_pe_username: "admin"
+ntnx_pe_password: "nutanix/4u"
+auth_string: "{{ nutanix_pe_ip_address }}:{{ nutanix_pe_username }}:{{ nutanix_pe_password }}"
+defaultStorageClass: "none"  # none | volumes | files | files-dynamic
+
+# volumes sc config
+volumesClass: false
+volumesClassName: "nutanix-volumes"
+volumesStorageContainer: ""
+volumesFsType: "xfs"  # ext4 | xfs
+volumesReclaimPolicy: "Delete"  # Delete | Retain
+volumesWhitelistIPAddr: ""
+volumesWhitelistIPMode: "DISABLED"  # ENABLED | DISABLED
+volumesChapAuth: "DISABLED"  # ENABLED | DISABLED
+volumesFlashMode: "DISABLED"  # ENABLED | DISABLED
+volumesLvm: false
+volumesLvmNumDisks: 4
+
+# files
+filesClass: false
+filesClassName: "nutanix-files"
+filesNfsServer: ""
+filesNfsPath: ""
+filesReclaimPolicy: "Delete"  # Delete | Retain
+
+# dynamic files
+filesDynamicClass: false
+filesDynamicClassName: "nutanix-files-dynamic"
+filesDynamicNfsServerName: ""
+filesDynamicReclaimPolicy: "Delete"  # Delete | Retain
