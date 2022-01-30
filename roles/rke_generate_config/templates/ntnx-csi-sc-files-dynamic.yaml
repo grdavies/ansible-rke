@@ -7,9 +7,8 @@ metadata:
 provisioner: csi.nutanix.com
 parameters:
     dynamicProv: ENABLED
-    nfsServerName: {{ filesNfsServer }}
-    nfsPath: {{ filesNfsPath 
+    nfsServerName: {{ filesDynamicNfsServerName }}
     csi.storage.k8s.io/provisioner-secret-name: "{{ secret_name }}"
     csi.storage.k8s.io/provisioner-secret-namespace: "{{ namespace }}"
     storageType: NutanixFiles
-reclaimPolicy: {{ filesReclaimPolicy }}
+reclaimPolicy: {{ filesDynamicReclaimPolicy }}
