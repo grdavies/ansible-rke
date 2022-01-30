@@ -3,6 +3,7 @@ ntnx_csi_conf_dir: "~/.ntnx-csi"
 ntnx_pe_ip: ""
 ntnx_pe_username: "admin"
 ntnx_pe_password: "nutanix/4u"
+auth_string: "{{ nutanix_pe_ip_address }}:{{ nutanix_pe_username }}:{{ nutanix_pe_password }}"
 
 port: 22
 user: nutanix
