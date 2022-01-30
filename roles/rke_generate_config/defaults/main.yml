@@ -17,7 +17,7 @@ volumesFsType: "xfs"  # ext4 | xfs
 volumesReclaimPolicy: "Delete"  # Delete | Retain
 volumesWhitelistIPAddr: ""
 volumesWhitelistIPMode: "DISABLED"  # ENABLED | DISABLED
-volunesChapAuth: "DISABLED"  # ENABLED | DISABLED
+volumesChapAuth: "DISABLED"  # ENABLED | DISABLED
 volumesFlashMode: "DISABLED"  # ENABLED | DISABLED
 volumesLvm: false
 volumesLvmNumDisks: 4
