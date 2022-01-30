@@ -55,7 +55,7 @@ upstream_dns_servers:
   - 8.8.4.4
 ingress_provider: nginx # none, nginx
 addons_include:
-  - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-rbac.yaml
-  - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-node.yaml
-  - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-provisioner.yaml
-  - https://github.com/nutanix/csi-plugin/blob/master/deploy/csi-driver.yaml
+  # - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-rbac.yaml
+  # - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-node.yaml
+  # - https://github.com/nutanix/csi-plugin/blob/master/deploy/ntnx-csi-provisioner.yaml
+  # - https://github.com/nutanix/csi-plugin/blob/master/deploy/csi-driver.yaml
