@@ -19,6 +19,8 @@ volumesWhitelistIPAddr: ""
 volumesWhitelistIPMode: "DISABLED"  # ENABLED | DISABLED
 volunesChapAuth: "DISABLED"  # ENABLED | DISABLED
 volumesFlashMode: "DISABLED"  # ENABLED | DISABLED
+volumesLvm: false
+volumesLvmNumDisks: 4
 
 # files
 filesClass: false
