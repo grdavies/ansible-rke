@@ -32,8 +32,8 @@ filesReclaimPolicy: "Delete"  # Delete | Retain
 # dynamic files
 filesDynamicClass: false
 filesDynamicClassName: "nutanix-files-dynamic"
-filesNfsServerName: ""
-filesReclaimPolicy: "Delete"  # Delete | Retain
+filesDynamicNfsServerName: ""
+filesDynamicReclaimPolicy: "Delete"  # Delete | Retain
 
 # rke
 port: 22
