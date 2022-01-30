@@ -58,9 +58,14 @@
       mode: '0600'
     when: volumesClass == true
 
+  - name: set fact volumes_include_path
+    set_fact:
+      volumes_include_path: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml"
+    when: volumesClass == true
+
   - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
     set_fact:
-      addons_include: "{{ addons_include + [ "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" ]}}"
+      addons_include: "{{ addons_include + [ volumes_include_path ] }}"
     when: volumesClass == true
 
   - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files.yaml"
@@ -72,9 +77,14 @@
       mode: '0600'
     when: filesClass == true
 
+  - name: set fact files_include_path
+    set_fact:
+      files_include_path: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files.yaml"
+    when: filesClass == true
+
   - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
     set_fact:
-      addons_include: "{{ addons_include + [ "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files.yaml" ]}}"
+      addons_include: "{{ addons_include + [ files_include_path ] }}"
     when: filesClass == true
 
   - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files-dynamic.yaml"
@@ -86,7 +96,12 @@
       mode: '0600'
     when: filesDynamicClass == true
 
+  - name: set fact files_dynamic_include_path
+    set_fact:
+      files_dynamic_include_path: "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files-dynamic.yaml"
+    when: filesDynamicClass == true
+
   - name: add "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-volumes.yaml" to rke addons list
     set_fact:
-      addons_include: "{{ addons_include + [ "{{ ntnx_csi_conf_dir }}/ntnx-csi-sc-files-dynamic.yaml" ]}}"
+      addons_include: "{{ addons_include + [ files_dynamic_include_path ] }}"
     when: filesDynamicClass == true
