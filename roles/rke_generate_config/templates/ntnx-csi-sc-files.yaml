@@ -3,7 +3,7 @@ apiVersion: storage.k8s.io/v1
 metadata:
     name: "{{ filesClassName }}"
     annotations:
-        storageclass.kubernetes.io/is-default-class: {% if default_class == "files" %}"true"{% else %}"false"{% endif %}
+        storageclass.kubernetes.io/is-default-class: {% if defaultStorageClass == "files" %}"true"{% else %}"false"{% endif %}
 provisioner: csi.nutanix.com
 parameters:
     nfsServer: {{ filesNfsServerName }}
