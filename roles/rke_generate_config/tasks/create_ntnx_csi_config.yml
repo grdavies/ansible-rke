@@ -39,7 +39,6 @@
 
   - name: generate b64 encoded string for secret
     set_fact:
-      auth_string: "{{ nutanix_pe_ip_address }}:{{ nutanix_pe_username }}:{{ nutanix_pe_password }}"
       auth_string_b64: "{{ auth_string | b64encode}}"
 
   - name: generate "{{ ntnx_csi_conf_dir }}/ntnx-csi-secret.yaml"
