@@ -23,7 +23,6 @@
       name: nutanix-csi
       kubeconfig: ~/kube_config_rke-cluster.yml
       chart_ref: nutanix/nutanix-csi-storage
-      chart_repo_url: https://nutanix.github.io/helm/
       release_namespace: kube-system
       create_namespace: true
       force: yes
