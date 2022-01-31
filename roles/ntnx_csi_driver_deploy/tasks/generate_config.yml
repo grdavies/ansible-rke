@@ -49,6 +49,22 @@
       group: nutanix
       mode: '0600'
 
+  - name: generate "{{ ntnxCsiDir }}/snapshot-controller-setup.yaml"
+    ansible.builtin.template:
+      src: templates/snapshot-controller-setup.yml.j2
+      dest: "{{ ntnxCsiDir }}/snapshot-controller-setup.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/snapshot-controller-rbac.yaml"
+    ansible.builtin.template:
+      src: templates/snapshot-controller-rbac.yml.j2
+      dest: "{{ ntnxCsiDir }}/snapshot-controller-rbac.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
   - name: generate "{{ ntnxCsiDir }}/ntnx-csi-sc-volumes.yaml"
     ansible.builtin.template:
       src: templates/ntnx-csi-sc-volumes.yml.j2
