@@ -1,4 +1,5 @@
 # roles/ntnx_csi_driver_deploy/defaults/main.yml
+ntnxCsiDir: "~/.ntnx-csi"
 kubeconfig: "~/kube_config_rke-cluster.yml"
 
 # storage class config

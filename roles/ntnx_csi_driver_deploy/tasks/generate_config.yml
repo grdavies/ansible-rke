@@ -1,0 +1,78 @@
+# roles/ntnx_csi_driver_deploy/tasks/generate_config.yaml
+---
+  - name: create helm directory
+    become: yes
+    file:
+      path: "{{ ntnxCsiDir }}"
+      state: directory
+
+  - name: generate b64 encoded string for secret
+    set_fact:
+      auth_string_b64: "{{ auth_string | b64encode}}"
+
+  - name: generate "{{ ntnxCsiDir }}/csi-driver.yaml"
+    ansible.builtin.template:
+      src: templates/csi-driver.yml.j2
+      dest: "{{ ntnxCsiDir }}/csi-driver.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-node.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-node.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-node.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-provisioner.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-provisioner.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-provisioner.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-rbac.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-secret.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-sc-volumes.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-sc-volumes.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-sc-volumes.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+    when: volumesClass
+
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-sc-files.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-sc-files.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-sc-files.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+    when: filesClass
+
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-sc-files-dynamic.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-sc-files-dynamic.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-sc-files-dynamic.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+    when: filesDynamicClass

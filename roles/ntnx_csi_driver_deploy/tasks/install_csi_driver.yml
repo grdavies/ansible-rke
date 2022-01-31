@@ -1,0 +1,52 @@
+# roles/ntnx_csi_driver_deploy/tasks/install_csi_driver.yml
+---
+  - name: apply ntnx-csi-rbac.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "{{ kubeconfig }}"
+      src: "{{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
+
+  - name: apply ntnx-csi-node.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "{{ kubeconfig }}"
+      src: "{{ ntnxCsiDir }}/ntnx-csi-node.yaml"
+
+  - name: apply ntnx-csi-provisioner.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "{{ kubeconfig }}"
+      src: "{{ ntnxCsiDir }}/ntnx-csi-provisioner.yaml"
+
+  - name: apply csi-driver.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "{{ kubeconfig }}"
+      src: "{{ ntnxCsiDir }}/csi-driver.yaml"
+
+  - name: ntnx-csi-secret.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "{{ kubeconfig }}"
+      src: "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
+
+  - name: ntnx-csi-sc-volumes.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "{{ kubeconfig }}"
+      src: "{{ ntnxCsiDir }}/ntnx-csi-sc-volumes.yaml"
+    when: volumesClass
+
+  - name: ntnx-csi-sc-files.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "{{ kubeconfig }}"
+      src: "{{ ntnxCsiDir }}/ntnx-csi-sc-files.yaml"
+    when: filesClass
+
+  - name: ntnx-csi-sc-files-dynamic.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "{{ kubeconfig }}"
+      src: "{{ ntnxCsiDir }}/ntnx-csi-sc-files-dynamic.yaml"
+    when: filesDynamicClass
