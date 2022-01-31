@@ -1,39 +1,58 @@
 # roles/ntnx_csi_driver_deploy/tasks/install_csi_driver.yml
 ---
-  - name: apply ntnx-csi-rbac.yaml
-    shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
+  - name: "apply {{ ntnxCsiDir }}/{{ item }}"
+    shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/{{ item }}"
     args:
       executable: /bin/bash
+    loop:
+      - "ntnx-csi-rbac.yaml"
+      - "ntnx-csi-node.yaml"
+      - "ntnx-csi-provisioner.yaml"
+      - "csi-driver.yaml"
+      - "crd"
+      - "snapshot-controller-setup.yaml"
+      - "snapshot-controller-rbac.yaml"
+      - "ntnx-csi-secret.yaml"
 
-  - name: apply ntnx-csi-node.yaml
-    shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-node.yaml"
-    args:
-      executable: /bin/bash
-
-  - name: apply ntnx-csi-provisioner.yaml
-    shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-provisioner.yaml"
-    args:
-      executable: /bin/bash
-
-  - name: apply csi-driver.yaml
-    shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/csi-driver.yaml"
-    args:
-      executable: /bin/bash
-
-  - name: apply snapshot-controller-setup.yaml
-    shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/snapshot-controller-setup.yaml"
-    args:
-      executable: /bin/bash
-
-  - name: apply snapshot-controller-rbac.yaml
-    shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/snapshot-controller-rbac.yaml"
-    args:
-      executable: /bin/bash
-
-  - name: apply ntnx-csi-secret.yaml
-    shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
-    args:
-      executable: /bin/bash
+  # - name: apply ntnx-csi-rbac.yaml
+  #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
+  #   args:
+  #     executable: /bin/bash
+  #
+  # - name: apply ntnx-csi-node.yaml
+  #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-node.yaml"
+  #   args:
+  #     executable: /bin/bash
+  #
+  # - name: apply ntnx-csi-provisioner.yaml
+  #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-provisioner.yaml"
+  #   args:
+  #     executable: /bin/bash
+  #
+  # - name: apply csi-driver.yaml
+  #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/csi-driver.yaml"
+  #   args:
+  #     executable: /bin/bash
+  #
+  # - name: "apply {{ ntnxCsiDir }}/crd"
+  #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/crd"
+  #   args:
+  #     executable: /bin/bash
+  #
+  # - name: apply snapshot-controller-setup.yaml
+  #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/snapshot-controller-setup.yaml"
+  #   args:
+  #     executable: /bin/bash
+  #
+  # - name: apply snapshot-controller-rbac.yaml
+  #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/snapshot-controller-rbac.yaml"
+  #   args:
+  #     executable: /bin/bash
+  #
+  # - name: apply ntnx-csi-secret.yaml
+  #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
+  #   args:
+  #     executable: /bin/bash
 
   - name: apply ntnx-csi-sc-volumes.yaml
     shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-sc-volumes.yaml"

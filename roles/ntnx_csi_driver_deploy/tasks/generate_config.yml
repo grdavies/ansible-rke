@@ -5,6 +5,11 @@
       path: "{{ ntnxCsiDir }}"
       state: directory
 
+  - name: "create directory {{ ntnxCsiDir }}/crd"
+    file:
+      path: "{{ ntnxCsiDir }}/crd"
+      state: directory
+
   - name: generate b64 encoded string for secret
     set_fact:
       auth_string_b64: "{{ auth_string | b64encode}}"
@@ -49,18 +54,42 @@
       group: nutanix
       mode: '0600'
 
-  - name: generate "{{ ntnxCsiDir }}/snapshot-controller-setup.yaml"
+  - name: generate "{{ ntnxCsiDir }}/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml"
     ansible.builtin.template:
-      src: templates/snapshot-controller-setup.yml.j2
-      dest: "{{ ntnxCsiDir }}/snapshot-controller-setup.yaml"
+      src: templates/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+      dest: "{{ ntnxCsiDir }}/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml"
       owner: nutanix
       group: nutanix
       mode: '0600'
 
-  - name: generate "{{ ntnxCsiDir }}/snapshot-controller-rbac.yaml"
+  - name: generate "{{ ntnxCsiDir }}/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml"
     ansible.builtin.template:
-      src: templates/snapshot-controller-rbac.yml.j2
-      dest: "{{ ntnxCsiDir }}/snapshot-controller-rbac.yaml"
+      src: templates/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+      dest: "{{ ntnxCsiDir }}/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/crd/snapshot.storage.k8s.io_volumesnapshots.yaml"
+    ansible.builtin.template:
+      src: templates/crd/snapshot.storage.k8s.io_volumesnapshots.yml.j2
+      dest: "{{ ntnxCsiDir }}/crd/snapshot.storage.k8s.io_volumesnapshots.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/crd/ntnx-snapshot-controller-setup.yaml"
+    ansible.builtin.template:
+      src: templates/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+      dest: "{{ ntnxCsiDir }}/ntnx-snapshot-controller-setup.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: generate "{{ ntnxCsiDir }}/ntnx-snapshot-controller-rbac.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-snapshot-controller-rbac.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-snapshot-controller-rbac.yaml"
       owner: nutanix
       group: nutanix
       mode: '0600'
