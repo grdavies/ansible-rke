@@ -1,0 +1,64 @@
+legacy: {{ csiLegacy }}
+os: {{ csiOs }}
+
+kubeletDir: "/var/lib/kubelet"
+
+nodeSelector: {}
+tolerations: []
+imagePullPolicy: IfNotPresent
+
+volumeClass: {{ volumesClass }}
+volumeClassName: "nutanix-volume"
+
+fileClass: {{ filesClass }}
+fileClassName: "nutanix-file"
+
+dynamicFileClass: {{ filesDynamicClass }}
+dynamicFileClassName: "nutanix-dynamicfile"
+
+defaultStorageClass: {{ defaultStorageClass }}
+
+prismEndPoint: {{ ntnx_pe_ip }}
+username: {{ ntnx_pe_username }}
+password: {{ ntnx_pe_password }}
+secretName: "ntnx-secret"
+createSecret: {{ createSecret }}
+storageContainer: {{ volumesStorageContainer }}
+
+fsType: {{ volumesFsType }}
+networkSegmentation: {{ volumesNetworkSegmentation }}
+lvmVolume: {{ volumesLvm }}
+lvmDisks: {{ volumesLvmNumDisks }}
+
+fileHost: {{ filesNfsServer }}
+filePath: {{ filesNfsPath }}
+
+fileServerName: {{ filesDynamicNfsServerName }}
+
+servicemonitor:
+  enabled: {{ serviceMonitorEnabled }}
+  labels:
+    k8s-app: csi-driver
+
+provisioner:
+  image: quay.io/karbon/ntnx-csi:v2.5.0
+  nodeSelector: {}
+  tolerations: []
+
+node:
+  image: quay.io/karbon/ntnx-csi:v2.5.0
+  nodeSelector: {}
+  tolerations: []
+
+sidecars:
+  registrar:
+    image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.2.0
+  provisioner:
+    image: k8s.gcr.io/sig-storage/csi-provisioner:v2.2.2
+  snapshotter:
+    image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.2.1
+    imageBeta: k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
+  resizer:
+    image: k8s.gcr.io/sig-storage/csi-resizer:v1.2.0
+  livenessprobe:
+    image: k8s.gcr.io/sig-storage/livenessprobe:v2.3.0

@@ -1,0 +1,4 @@
+# roles/helm_ntnx_csi_driver/tasks/main.yml
+---
+  - include_tasks: install_csi_helm.yml
+    tags: always

@@ -1,0 +1,29 @@
+# roles/helm_ntnx_csi_driver/tasks/install_csi_helm.yml
+---
+  - name: "create directory {{ ntnxCsiDir }}"
+    file:
+      path: "{{ ntnxCsiDir }}"
+      state: directory
+
+  - name: Add nutanix csi chart repo
+    kubernetes.core.helm_repository:
+      name: nutanix
+      repo_url: "https://nutanix.github.io/helm/"
+
+  - name: generate "{{ ntnxCsiDir }}/helm-values.yaml"
+    ansible.builtin.template:
+      src: templates/ntnx-csi-helm-values.yml.j2
+      dest: "{{ ntnxCsiDir }}/helm-values.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: helm install nutanix csi driver
+    kubernetes.core.helm:
+      name: nutanix-csi
+      chart_ref: nutanix/nutanix-csi-storage
+      release_namespace: kube-system
+      create_namespace: true
+      kubeconfig: '~/kube_config_rke-cluster.yml'
+      values_files:
+        - "{{ ntnxCsiDir }}/helm-values.yaml"

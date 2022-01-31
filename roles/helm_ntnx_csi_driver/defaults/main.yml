@@ -1,0 +1,32 @@
+# roles/helm_ntnx_csi_driver/defaults/main.yml
+ntnxCsiDir: "~/.ntnx-csi"
+kubeconfig: "~/kube_config_rke-cluster.yml"
+
+# storage class config
+ntnx_pe_ip: ""
+ntnx_pe_username: "admin"
+ntnx_pe_password: "nutanix/4u"
+defaultStorageClass: "none"  # none | volumes | files | files-dynamic
+
+# volumes sc config
+volumesClass: false
+volumesStorageContainer: ""
+volumesFsType: "xfs"  # ext4 | xfs
+volumesLvm: false
+volumesLvmNumDisks: 4
+volumesNetworkSegmentation: false
+
+# files
+filesClass: false
+filesNfsServer: ""
+filesNfsPath: ""
+
+# dynamic files
+filesDynamicClass: false
+filesDynamicNfsServerName: ""
+
+# helm
+csiLegacy: false
+csiOs: none
+createSecret: true
+serviceMonitorEnabled: false

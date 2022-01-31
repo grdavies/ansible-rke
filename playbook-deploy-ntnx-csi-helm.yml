@@ -1,0 +1,7 @@
+---
+  - name: "Deploy Nutanix CSI Driver"
+    hosts: admin_vm
+    collections:
+      - kubernetes.core
+    roles:
+      - helm_ntnx_csi_driver
