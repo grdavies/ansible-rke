@@ -3,11 +3,12 @@ apiVersion: storage.k8s.io/v1
 metadata:
   name: "{{ volumesClassName }}"
   annotations:
-  {% if defaultStorageClass == "volumes" %}
+{% if defaultStorageClass == "volumes" %}
     storageclass.kubernetes.io/is-default-class: "true"
-  {% else %}
+{% else %}
     storageclass.kubernetes.io/is-default-class: "false"
-  {% endif %}
+{% endif %}
+
 provisioner: csi.nutanix.com
 allowVolumeExpansion: true
 parameters:
