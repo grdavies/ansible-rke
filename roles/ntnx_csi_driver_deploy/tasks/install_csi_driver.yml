@@ -1,7 +1,7 @@
 # roles/ntnx_csi_driver_deploy/tasks/install_csi_driver.yml
 ---
   - name: apply ntnx-csi-rbac.yaml
-    shell: /usr/bin/kubectl create -f "{{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
+    shell: "/usr/bin/kubectl create -f {{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
     args:
       executable: /bin/bash
 
@@ -12,7 +12,7 @@
   #     src: "{{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
 
   - name: apply ntnx-csi-node.yaml
-    shell: /usr/bin/kubectl create -f "{{ ntnxCsiDir }}/ntnx-csi-node.yaml"
+    shell: "/usr/bin/kubectl create -f {{ ntnxCsiDir }}/ntnx-csi-node.yaml"
     args:
       executable: /bin/bash
 
@@ -23,7 +23,7 @@
   #     src: "{{ ntnxCsiDir }}/ntnx-csi-node.yaml"
 
   - name: apply ntnx-csi-provisioner.yaml
-    shell: /usr/bin/kubectl create -f "{{ ntnxCsiDir }}/ntnx-csi-provisioner.yaml"
+    shell: "/usr/bin/kubectl create -f {{ ntnxCsiDir }}/ntnx-csi-provisioner.yaml"
     args:
       executable: /bin/bash
 
@@ -34,7 +34,7 @@
   #     src: "{{ ntnxCsiDir }}/ntnx-csi-provisioner.yaml"
 
   - name: apply csi-driver.yaml
-    shell: /usr/bin/kubectl create -f "{{ ntnxCsiDir }}/csi-driver.yaml"
+    shell: "/usr/bin/kubectl create -f {{ ntnxCsiDir }}/csi-driver.yaml"
     args:
       executable: /bin/bash
 
@@ -45,7 +45,7 @@
   #     src: "{{ ntnxCsiDir }}/csi-driver.yaml"
 
   - name: apply ntnx-csi-secret.yaml
-    shell: /usr/bin/kubectl create -f "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
+    shell: "/usr/bin/kubectl create -f {{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
     args:
       executable: /bin/bash
 
@@ -56,7 +56,7 @@
   #     src: "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
 
   - name: apply ntnx-csi-sc-volumes.yaml
-    shell: /usr/bin/kubectl create -f "{{ ntnxCsiDir }}/ntnx-csi-sc-volumes.yaml"
+    shell: "/usr/bin/kubectl create -f {{ ntnxCsiDir }}/ntnx-csi-sc-volumes.yaml"
     args:
       executable: /bin/bash
     when: volumesClass
@@ -69,7 +69,7 @@
   #   when: volumesClass
 
   - name: apply ntnx-csi-sc-files.yaml
-    shell: /usr/bin/kubectl create -f "{{ ntnxCsiDir }}/ntnx-csi-sc-files.yaml"
+    shell: "/usr/bin/kubectl create -f {{ ntnxCsiDir }}/ntnx-csi-sc-files.yaml"
     args:
       executable: /bin/bash
     when: filesClass
@@ -82,7 +82,7 @@
   #   when: filesClass
 
   - name: apply ntnx-csi-sc-files-dynamic.yaml
-    shell: /usr/bin/kubectl create -f "{{ ntnxCsiDir }}/ntnx-csi-sc-files-dynamic.yaml"
+    shell: "/usr/bin/kubectl create -f {{ ntnxCsiDir }}/ntnx-csi-sc-files-dynamic.yaml"
     args:
       executable: /bin/bash
     when: filesDynamicClass
