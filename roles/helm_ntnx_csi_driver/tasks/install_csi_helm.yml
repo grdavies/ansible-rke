@@ -29,5 +29,5 @@
       force: yes
       release_state: present
       update_repo_cache: yes
-      value_files: #"{{ lookup('template', 'ntnx-csi-helm-values.yml.j2') | from_yaml }}"
+      values_files: #"{{ lookup('template', 'ntnx-csi-helm-values.yml.j2') | from_yaml }}"
         - "/home/nutanix/.ntnx-csi/helm-values.yaml"
