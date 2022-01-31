@@ -25,5 +25,4 @@
       release_namespace: kube-system
       create_namespace: true
       kubeconfig: '~/kube_config_rke-cluster.yml'
-      values_files:
-        - "{{ ntnxCsiDir }}/helm-values.yaml"
+      values: "{{ lookup('template', 'ntnx-csi-helm-values.yml.j2') | from_yaml }}"
