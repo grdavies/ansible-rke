@@ -3,7 +3,7 @@ ntnxCsiDir: "~/.ntnx-csi"
 kubeconfig: "~/kube_config_rke-cluster.yml"
 
 # storage class config
-ntnx_pe_ip: ""
+nutanix_pe_ip_address: ""
 ntnx_pe_username: "admin"
 ntnx_pe_password: "nutanix/4u"
 defaultStorageClass: "none"  # none | volumes | files | files-dynamic
