@@ -18,10 +18,10 @@
       group: nutanix
       mode: '0600'
 
-- name: Render templates to specified directory
-  kubernetes.core.helm_template:
-    chart_ref: nutanix/nutanix-csi-storage
-    output_dir: "{{ ntnxCsiDir }}/helm"
+  - name: Render templates to specified directory
+    kubernetes.core.helm_template:
+      chart_ref: nutanix/nutanix-csi-storage
+      output_dir: "{{ ntnxCsiDir }}/helm"
 
   - name: helm install nutanix csi driver
     kubernetes.core.helm:
