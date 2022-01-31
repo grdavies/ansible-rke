@@ -4,10 +4,6 @@
     include_vars: "network-{{ network_plugin }}.yml"
     tags: always
 
-  # - name: "generate nutanix csi configuration files"
-  #   include_tasks: create_ntnx_csi_config.yml
-  #   tags: always
-  #
   - name: "generate cluster configuration file"
     include_tasks: create_rke_cluster_config.yml
     tags: always
