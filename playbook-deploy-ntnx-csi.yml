@@ -1,0 +1,5 @@
+---
+  - name: "Deploy Nutanix CSI Driver"
+    hosts: admin_vm
+    roles:
+      - ntnx_csi_driver_deploy

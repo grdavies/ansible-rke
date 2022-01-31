@@ -19,4 +19,4 @@
     roles:
       - rke_generate_config
       - rke_deploy
-      - ntnx_csi_driver_deploy
+      # - ntnx_csi_driver_deploy
