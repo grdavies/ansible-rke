@@ -3,13 +3,13 @@
   - name: ntnx-csi-rbac.yaml
     kubernetes.core.k8s:
       state: present
-      kubeconfig: {{ kubeconfig }}
+      kubeconfig: "{{ kubeconfig }}"
       src: "{{ lookup('templates', 'ntnx-csi-rbac.yaml') | from_yaml }}"
 
   - name: ntnx-csi-node.yaml
     kubernetes.core.k8s:
       state: present
-      kubeconfig: {{ kubeconfig }}
+      kubeconfig: "{{ kubeconfig }}"
       src: "{{ lookup('templates', 'ntnx-csi-node.yaml') | from_yaml }}"
 
   - name: ntnx-csi-provisioner.yaml
@@ -21,7 +21,7 @@
   - name: csi-driver.yaml
     kubernetes.core.k8s:
       state: present
-      kubeconfig: {{ kubeconfig }}
+      kubeconfig: "{{ kubeconfig }}"
       src: "{{ lookup('templates', 'csi-driver.yaml') | from_yaml }}"
 
   - name: generate b64 encoded string for secret
@@ -31,26 +31,26 @@
   - name: ntnx-csi-secret.yaml
     kubernetes.core.k8s:
       state: present
-      kubeconfig: {{ kubeconfig }}
+      kubeconfig: "{{ kubeconfig }}"
       src: "{{ lookup('templates', 'ntnx-csi-secret.yaml') | from_yaml }}"
 
   - name: ntnx-csi-sc-volumes.yaml
     kubernetes.core.k8s:
       state: present
-      kubeconfig: {{ kubeconfig }}
+      kubeconfig: "{{ kubeconfig }}"
       src: "{{ lookup('templates', 'ntnx-csi-sc-volumes.yaml') | from_yaml }}"
     when: volumesClass
 
   - name: ntnx-csi-sc-files.yaml
     kubernetes.core.k8s:
       state: present
-      kubeconfig: {{ kubeconfig }}
+      kubeconfig: "{{ kubeconfig }}"
       src: "{{ lookup('templates', 'ntnx-csi-sc-files.yaml') | from_yaml }}"
     when: filesClass
 
   - name: ntnx-csi-sc-files-dynamic.yaml
     kubernetes.core.k8s:
       state: present
-      kubeconfig: {{ kubeconfig }}
+      kubeconfig: "{{ kubeconfig }}"
       src: "{{ lookup('templates', 'ntnx-csi-sc-files-dynamic.yaml') | from_yaml }}"
     when: filesDynamicClass
