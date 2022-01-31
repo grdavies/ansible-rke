@@ -55,8 +55,3 @@ upstream_dns_servers:
   - 8.8.4.4
 ingress_provider: nginx # none, nginx
 addons_include:
-  - "{{ ntnx_csi_conf_dir }}/ntnx-csi-rbac.yaml"
-  - "{{ ntnx_csi_conf_dir }}/ntnx-csi-node.yaml"
-  - "{{ ntnx_csi_conf_dir }}/ntnx-csi-provisioner.yaml"
-  - "{{ ntnx_csi_conf_dir }}/csi-driver.yaml"
-  - "{{ ntnx_csi_conf_dir }}/ntnx-csi-secret.yaml"
