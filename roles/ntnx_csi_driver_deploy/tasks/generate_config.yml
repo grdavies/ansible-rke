@@ -1,7 +1,6 @@
 # roles/ntnx_csi_driver_deploy/tasks/generate_config.yaml
 ---
-  - name: create helm directory
-    become: yes
+  - name: create nutanix csi directory
     file:
       path: "{{ ntnxCsiDir }}"
       state: directory
