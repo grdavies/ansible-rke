@@ -15,7 +15,7 @@
   - name: ntnx-csi-provisioner.yaml
     kubernetes.core.k8s:
       state: present
-      kubeconfig: {{ kubeconfig }}
+      kubeconfig: "{{ kubeconfig }}"
       src: "{{ lookup('templates', 'ntnx-csi-provisioner.yaml') | from_yaml }}"
 
   - name: csi-driver.yaml
