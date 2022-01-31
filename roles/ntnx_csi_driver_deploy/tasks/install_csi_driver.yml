@@ -1,6 +1,6 @@
 # roles/ntnx_csi_driver_deploy/tasks/install_csi_driver.yml
 ---
-  - name: "apply {{ ntnxCsiDir }}/{{ item }}"
+  - name: "apply generated nutanix csi config"
     shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/{{ item }}"
     args:
       executable: /bin/bash
