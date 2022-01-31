@@ -9,3 +9,12 @@
       group: root
       mode: '0644'
     notify: "restart docker"
+
+  - name: Add the user 'nutanix' to the 'docker' group
+    become: yes
+    user:
+      name: nutanix
+      groups:
+        - docker
+      append: yes
+    become: yes

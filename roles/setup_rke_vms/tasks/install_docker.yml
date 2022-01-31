@@ -31,10 +31,3 @@
       name: docker
       state: started
     become: yes
-
-  - name: Add the user 'nutanix' to the 'docker' group
-    user:
-      name: nutanix
-      group: docker
-      append: yes
-    become: yes
