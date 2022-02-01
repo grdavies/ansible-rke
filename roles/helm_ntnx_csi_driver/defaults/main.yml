@@ -4,8 +4,8 @@ kubeconfig: "/home/nutanix/kube_config_rke-cluster.yml"
 
 # storage class config
 nutanix_pe_ip_address: ""
-ntnx_pe_username: "admin"
-ntnx_pe_password: "nutanix/4u"
+nutanix_pe_username: "admin"
+nutanix_pe_password: "nutanix/4u"
 defaultStorageClass: "none"  # none | volumes | files | files-dynamic
 
 # volumes sc config
