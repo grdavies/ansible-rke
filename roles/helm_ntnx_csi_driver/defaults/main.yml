@@ -1,5 +1,6 @@
 # roles/helm_ntnx_csi_driver/defaults/main.yml
 ntnxCsiDir: "/home/nutanix/.ntnx-csi"
+ntnxCsiNamespace: "ntnx-system"
 kubeconfig: "/home/nutanix/kube_config_rke-cluster.yml"
 
 # storage class config
@@ -30,3 +31,5 @@ csiLegacy: false
 csiOs: none
 createSecret: true
 serviceMonitorEnabled: false
+tlsSource: generate
+tlsRenew: true

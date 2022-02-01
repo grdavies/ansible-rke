@@ -10,7 +10,25 @@
       name: nutanix
       repo_url: "https://nutanix.github.io/helm/"
 
-  - name: generate "{{ ntnxCsiDir }}/helm-values.yaml"
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-snapshots-helm-values.yaml"
+    template:
+      src: templates/ntnx-csi-snapshots-helm-values.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-snapshots-helm-values.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: helm install nutanix csi snapshot driver
+    kubernetes.core.helm:
+      name: nutanix-csi
+      kubeconfig: ~/kube_config_rke-cluster.yml
+      chart_ref: nutanix/nutanix-csi-storage
+      release_namespace: {{ ntnxCsiNamespace }}
+      release_state: present
+      update_repo_cache: yes
+      values_files: "{{ lookup('template', 'ntnx-csi-snapshots-helm-values.yml.j2') | from_yaml }}"
+
+  - name: generate "{{ ntnxCsiDir }}/csi-helm-values.yaml"
     template:
       src: templates/ntnx-csi-helm-values.yml.j2
       dest: "{{ ntnxCsiDir }}/helm-values.yaml"
@@ -18,13 +36,12 @@
       group: nutanix
       mode: '0600'
 
-  # - name: helm install nutanix csi driver
-  #   kubernetes.core.helm:
-  #     name: nutanix-csi
-  #     kubeconfig: ~/kube_config_rke-cluster.yml
-  #     chart_ref: nutanix/nutanix-csi-storage
-  #     release_namespace: kube-system
-  #     release_state: present
-  #     update_repo_cache: yes
-  #     values_files: #"{{ lookup('template', 'ntnx-csi-helm-values.yml.j2') | from_yaml }}"
-  #       - "/home/nutanix/.ntnx-csi/helm-values.yaml"
+  - name: helm install nutanix csi driver
+    kubernetes.core.helm:
+      name: nutanix-csi
+      kubeconfig: ~/kube_config_rke-cluster.yml
+      chart_ref: nutanix/nutanix-csi-storage
+      release_namespace: {{ ntnxCsiNamespace }}
+      release_state: present
+      update_repo_cache: yes
+      values_files: "{{ lookup('template', 'ntnx-csi-helm-values.yml.j2') | from_yaml }}"
