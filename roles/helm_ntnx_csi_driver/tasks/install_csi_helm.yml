@@ -19,7 +19,7 @@
       kubeconfig: "~/kube_config_rke-cluster.yml"
       src: "{{ lookup('template', 'ntnx-csi-secret.yml.j2') | from_yaml }}"
       force: yes
-      namespace: {{ ntnxCsiNamespace }}
+      namespace: "{{ ntnxCsiNamespace }}"
 
   - name: Add nutanix csi chart repo
     kubernetes.core.helm_repository:
