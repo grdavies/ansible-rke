@@ -5,7 +5,7 @@
       path: "{{ ntnxCsiDir }}"
       state: directory
 
-  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
+  - name: "generate {{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
     template:
       src: templates/ntnx-csi-secret.yml.j2
       dest: "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
@@ -17,7 +17,7 @@
     kubernetes.core.k8s:
       state: present
       kubeconfig: "~/kube_config_rke-cluster.yml"
-      src: "{{ lookup('template', 'ntnx-csi-secret.yml.j2') | from_yaml }}"
+      src: "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
       force: yes
       namespace: "{{ ntnxCsiNamespace }}"
 
