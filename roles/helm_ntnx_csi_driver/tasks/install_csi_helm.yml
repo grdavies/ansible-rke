@@ -39,7 +39,7 @@
       name: nutanix-csi
       kubeconfig: ~/kube_config_rke-cluster.yml
       chart_ref: nutanix/nutanix-csi-storage
-      release_namespace: {{ ntnxCsiNamespace }}
+      release_namespace: "{{ ntnxCsiNamespace }}"
       release_state: present
       update_repo_cache: yes
       values_files: "{{ lookup('template', 'ntnx-csi-snapshots-helm-values.yml.j2') | from_yaml }}"
@@ -57,7 +57,7 @@
       name: nutanix-csi
       kubeconfig: ~/kube_config_rke-cluster.yml
       chart_ref: nutanix/nutanix-csi-storage
-      release_namespace: {{ ntnxCsiNamespace }}
+      release_namespace: "{{ ntnxCsiNamespace }}"
       release_state: present
       update_repo_cache: yes
       values_files: "{{ lookup('template', 'ntnx-csi-helm-values.yml.j2') | from_yaml }}"
