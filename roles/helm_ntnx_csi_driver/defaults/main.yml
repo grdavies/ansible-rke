@@ -4,9 +4,6 @@ ntnxCsiNamespace: "ntnx-system"
 kubeconfig: "/home/nutanix/kube_config_rke-cluster.yml"
 
 # storage class config
-nutanix_pe_ip_address: ""
-nutanix_pe_username: "admin"
-nutanix_pe_password: "nutanix/4u"
 defaultStorageClass: "none"  # none | volumes | files | files-dynamic
 
 # volumes sc config
@@ -29,7 +26,8 @@ filesDynamicNfsServerName: ""
 # helm
 csiLegacy: false
 csiOs: none
-createSecret: true
+createSecret: false
+secretName: "ntnx-secret"
 serviceMonitorEnabled: false
 tlsSource: generate
 tlsRenew: true

@@ -29,8 +29,8 @@
       - "crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml"
       - "crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml"
       - "crd/snapshot.storage.k8s.io_volumesnapshots.yaml"
-      - "ntnx-snapshot-controller-setup.yaml"
-      - "ntnx-snapshot-controller-rbac.yaml"
+      - "snapshot-controller-setup.yaml"
+      - "snapshot-controller-rbac.yaml"
       - "ntnx-csi-secret.yaml"
 
   - name: apply ntnx-csi-sc-volumes.yaml

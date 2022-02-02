@@ -10,10 +10,6 @@
       path: "{{ ntnxCsiDir }}/crd"
       state: directory
 
-  - name: generate b64 encoded string for secret
-    set_fact:
-      auth_string_b64: "{{ auth_string | b64encode}}"
-
   - name: generate "{{ ntnxCsiDir }}/csi-driver.yaml"
     ansible.builtin.template:
       src: templates/csi-driver.yml.j2

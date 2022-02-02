@@ -5,6 +5,22 @@
       path: "{{ ntnxCsiDir }}"
       state: directory
 
+  - name: generate "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
+    template:
+      src: templates/ntnx-csi-secret.yml.j2
+      dest: "{{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
+      owner: nutanix
+      group: nutanix
+      mode: '0600'
+
+  - name: "create secret {{ secretName }} in namespace {{ ntnxCsiNamespace }}"
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      src: "{{ lookup('template', 'ntnx-csi-secret.yml.j2') | from_yaml }}"
+      force: yes
+      namespace: {{ ntnxCsiNamespace }}
+
   - name: Add nutanix csi chart repo
     kubernetes.core.helm_repository:
       name: nutanix
