@@ -5,6 +5,13 @@
       path: "{{ ntnxCsiDir }}"
       state: directory
 
+  - name: Ensure namespace exists
+    kubernetes.core.k8s:
+      name: "{{ ntnxCsiNamespace }}"
+      api_version: v1
+      kind: Namespace
+      state: present
+
   - name: "generate {{ ntnxCsiDir }}/ntnx-csi-secret.yaml"
     template:
       src: templates/ntnx-csi-secret.yml.j2
