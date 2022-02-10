@@ -1,0 +1,42 @@
+#
+---
+  rancher:
+    hostname: ""
+    privateCA: false
+    addLocal: true
+    antiAffinity: "preferred"
+    additionalTrustedCAs: false
+    auditLog:
+      destination: "sidecar"  # sidecar | hostpath
+      hostPath: "/var/log/rancher/audit"
+      level: 0
+      maxAge: 1
+      maxBackup: 1
+      maxSize: 100
+    busyboxImage: "busybox"
+    certmanager:
+      version: ""
+    debug: false
+    extraEnv: []
+    imagePullSecrets: []
+    ingress:
+      configurationSnippet: ""
+      extraAnnotations: {}
+      enabled: true
+      tls:
+        source: "rancher"  # rancher | letsEncrypt | secret
+    letsEncrypt:
+      ingress:
+        class: ""
+      email: ""
+      environment: "production"
+    noProxy: "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cluster.local,cattle-system.svc"
+    proxy: ""
+    rancherImage: "rancher/rancher"
+    rancherImagePullPolicy: "IfNotPresent"
+    replicas: 3
+    resources: {}
+    restrictedAdmin: false
+    systemDefaultRegistry: ""
+    tls: "ingress"
+    useBundledSystemChart: false

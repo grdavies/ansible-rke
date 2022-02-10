@@ -1,0 +1,8 @@
+# ansible-playbook -i inventory/inventory.ini -vv playbook-deploy-rancher.yml
+---
+  - name: "Deploy Rancher"
+    hosts: admin_vm
+    roles:
+      - rancher_deploy
+    when:
+      - rancher.deploy
