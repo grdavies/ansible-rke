@@ -1,6 +1,7 @@
 #
 ---
   rancher:
+    repo: "rancher-stable"
     hostname: ""
     namespace: "cattle-system"
     privateCA: false
