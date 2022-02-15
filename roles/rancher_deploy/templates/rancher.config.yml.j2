@@ -1,40 +1,40 @@
 ---
-  hostname: {{ rancher.hostname }}
+  hostname: "{{ rancher.hostname }}"
   privateCA: {{ rancher.privateCA }}
-  addLocal: {{ rancher.addLocal }}
-  antiAffinity: {{ rancher.antiAffinity }}
+  addLocal: "{{ rancher.addLocal }}"
+  antiAffinity: "{{ rancher.antiAffinity }}"
   additionalTrustedCAs: {{ rancher.additionalTrustedCAs }}
   auditLog:
-    destination: {{ rancher.auditLog.destination }}
-    hostPath: {{ rancher.auditLog.hostPath }}
+    destination: "{{ rancher.auditLog.destination }}"
+    hostPath: "{{ rancher.auditLog.hostPath }}"
     level: {{ rancher.auditLog.level }}
     maxAge: {{ rancher.auditLog.maxAge }}
     maxBackup: {{ rancher.auditLog.maxBackup }}
     maxSize: {{ rancher.auditLog.maxSize }}
-  busyboxImage: {{ rancher.busyboxImage }}
+  busyboxImage: "{{ rancher.busyboxImage }}"
   certmanager:
-    version: {{ rancher.certmanager.version }}
+    version: "{{ rancher.certmanager.version }}"
   debug: {{ rancher.debug }}
   extraEnv: {{ rancher.extraEnv }}
   imagePullSecrets: {{ rancher.imagePullSecrets }}
   ingress:
-    configurationSnippet: {{ rancher.ingress.configurationSnippet }}
+    configurationSnippet: "{{ rancher.ingress.configurationSnippet }}"
     extraAnnotations: {{ rancher.ingress.extraAnnotations }}
     enabled: {{ rancher.ingress.enabled }}
     tls:
-      source: {{ rancher.ingress.tls.source }}
+      source: "{{ rancher.ingress.tls.source }}"
   letsEncrypt:
     ingress:
-      class: {{ rancher.letsEncrypt.ingress.class }}
-    email: {{ rancher.letsEncrypt.email }}
-    environment: {{ rancher.letsEncrypt.environment }}
-  noProxy: {{ rancher.noProxy }}
-  proxy: {{ rancher.proxy }}
-  rancherImage: {{ rancher.rancherImage }}
-  rancherImagePullPolicy: {{ rancher.rancherImagePullPolicy }}
+      class: "{{ rancher.letsEncrypt.ingress.class }}"
+    email: "{{ rancher.letsEncrypt.email }}"
+    environment: "{{ rancher.letsEncrypt.environment }}"
+  noProxy: "{{ rancher.noProxy }}"
+  proxy: "{{ rancher.proxy }}"
+  rancherImage: "{{ rancher.rancherImage }}"
+  rancherImagePullPolicy: "{{ rancher.rancherImagePullPolicy }}"
   replicas: {{ rancher.replicas }}
   resources: {{ rancher.resources }}
   restrictedAdmin: {{ rancher.restrictedAdmin }}
-  systemDefaultRegistry: {{ rancher.systemDefaultRegistry }}
-  tls: {{ rancher.tls }}
+  systemDefaultRegistry: "{{ rancher.systemDefaultRegistry }}"
+  tls: "{{ rancher.tls }}"
   useBundledSystemChart: {{ rancher.useBundledSystemChart }}
