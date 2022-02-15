@@ -14,7 +14,7 @@
       mode: '0600'
 
   - debug:
-    var: rancher
+      var: rancher
 
   - name: Add rancher Helm repository
     kubernetes.core.helm_repository:
