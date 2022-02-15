@@ -2,6 +2,7 @@
 ---
   rancher:
     hostname: ""
+    namespace: "cattle-system"
     privateCA: false
     addLocal: true
     antiAffinity: "preferred"
