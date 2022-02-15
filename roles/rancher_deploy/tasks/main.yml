@@ -13,6 +13,9 @@
       group: nutanix
       mode: '0600'
 
+  - debug:
+    var: rancher
+
   - name: Add rancher Helm repository
     kubernetes.core.helm_repository:
       name: "{{ rancher.repo }}"
