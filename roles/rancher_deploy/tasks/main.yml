@@ -15,10 +15,10 @@
 
   - name: Add rancher Helm repository
     kubernetes.core.helm_repository:
-      name: rancher-latest
+      name: "{{ rancher.repo }}"
       repo_url: "https://releases.rancher.com/server-charts/latest"
 
-  - name: Ensure cattle-system namespace exists
+  - name: Ensure namespace exists
     kubernetes.core.k8s:
       name: "{{ rancher.namespace }}"
       api_version: v1
