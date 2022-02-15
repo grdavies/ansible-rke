@@ -1,13 +1,14 @@
 #
 ---
   rancher:
+    deploy: true
     repo: "rancher-stable"
     hostname: ""
     namespace: "cattle-system"
-    privateCA: false
-    addLocal: true
+    privateCA: "false"
+    addLocal: "true"
     antiAffinity: "preferred"
-    additionalTrustedCAs: false
+    additionalTrustedCAs: "false"
     auditLog:
       destination: "sidecar"  # sidecar | hostpath
       hostPath: "/var/log/rancher/audit"
@@ -18,13 +19,13 @@
     busyboxImage: "busybox"
     certmanager:
       version: ""
-    debug: false
+    debug: "false"
     extraEnv: []
     imagePullSecrets: []
     ingress:
       configurationSnippet: ""
       extraAnnotations: {}
-      enabled: true
+      enabled: "true"
       tls:
         source: "rancher"  # rancher | letsEncrypt | secret
     letsEncrypt:
@@ -38,7 +39,7 @@
     rancherImagePullPolicy: "IfNotPresent"
     replicas: 3
     resources: {}
-    restrictedAdmin: false
+    restrictedAdmin: "false"
     systemDefaultRegistry: ""
     tls: "ingress"
-    useBundledSystemChart: false
+    useBundledSystemChart: "false"
