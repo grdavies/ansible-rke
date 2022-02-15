@@ -38,6 +38,8 @@
       namespace: "cert-manager"
       create_namespace: yes
       update_repo_cache: yes
+      values:
+        installCRDs: true
 
   - name: install rancher
     kubernetes.core.helm:
