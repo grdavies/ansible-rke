@@ -20,16 +20,10 @@
 
   - name: Ensure cattle-system namespace exists
     kubernetes.core.k8s:
-      name: cattle-system
+      name: "{{ rancher.namespace }}"
       api_version: v1
       kind: Namespace
       state: present
-
-  - name: install rancher
-    kubernetes.core.k8s:
-      kubeconfig: "~/kube_config_rke-cluster.yml"
-      state: present
-      src: "https://github.com/jetstack/cert-manager/releases/download/v1.5.1/cert-manager.crds.yaml"
 
   - name: add Jetstack Helm repository
     kubernetes.core.helm_repository:
