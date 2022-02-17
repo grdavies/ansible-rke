@@ -14,58 +14,195 @@
   #     - "snapshot-controller-rbac.yaml"
   #     - "ntnx-csi-secret.yaml"
   #
-  - name: apply generated nutanix csi config
+  - name: Ensure namespace exists
+    kubernetes.core.k8s:
+      name: "{{ ntnx_csi_namespace }}"
+      api_version: v1
+      kind: Namespace
+      state: present
+      wait: yes
+      wait_timeout: 900
+
+  # - name: apply generated nutanix csi config
+  #   kubernetes.core.k8s:
+  #     state: present
+  #     kubeconfig: "~/kube_config_rke-cluster.yml"
+  #     src: "{{ ntnxCsiDir }}/{{ item }}"
+  #     force: yes
+  #     namespace: "{{ ntnx_csi_namespace }}"
+  #     wait: yes
+  #     wait_timeout: 900
+  #   loop:
+  #     - "ntnx-csi-rbac.yaml"
+  #     - "ntnx-csi-node.yaml"
+  #     - "ntnx-csi-provisioner.yaml"
+  #     - "csi-driver.yaml"
+  #     - "crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml"
+  #     - "crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml"
+  #     - "crd/snapshot.storage.k8s.io_volumesnapshots.yaml"
+  #     - "snapshot-controller-setup.yaml"
+  #     - "snapshot-controller-rbac.yaml"
+  #     - "ntnx-csi-secret.yaml"
+
+  - name: apply ntnx-csi-rbac.yaml
     kubernetes.core.k8s:
       state: present
       kubeconfig: "~/kube_config_rke-cluster.yml"
-      src: "{{ ntnxCsiDir }}/{{ item }}"
-      force: yes
-      namespace: kube-system
-    loop:
-      - "ntnx-csi-rbac.yaml"
-      - "ntnx-csi-node.yaml"
-      - "ntnx-csi-provisioner.yaml"
-      - "csi-driver.yaml"
-      - "crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml"
-      - "crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml"
-      - "crd/snapshot.storage.k8s.io_volumesnapshots.yaml"
-      - "snapshot-controller-setup.yaml"
-      - "snapshot-controller-rbac.yaml"
-      - "ntnx-csi-secret.yaml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: ntnx-csi-rbac.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply ntnx-csi-node.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: ntnx-csi-node.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply ntnx-csi-provisioner.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: ntnx-csi-provisioner.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply csi-driver.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: csi-driver.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: crd/snapshot.storage.k8s.io_volumesnapshotclasses.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: crd/snapshot.storage.k8s.io_volumesnapshotcontents.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply snapshot.storage.k8s.io_volumesnapshots.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: crd/snapshot.storage.k8s.io_volumesnapshots.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply snapshot-controller-setup.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: snapshot-controller-setup.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply snapshot-controller-rbac.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: snapshot-controller-rbac.yml.j2
+      wait: yes
+      wait_timeout: 900
+
+  - name: apply ntnx-csi-secret.yaml
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: "~/kube_config_rke-cluster.yml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: ntnx-csi-secret.yml.j2
+      wait: yes
+      wait_timeout: 900
 
   - name: apply ntnx-csi-sc-volumes.yaml
     kubernetes.core.k8s:
       state: present
       kubeconfig: "~/kube_config_rke-cluster.yml"
-      src: "{{ ntnxCsiDir }}/{{ item }}"
-      force: yes
-      namespace: kube-system
-    loop:
-      - "ntnx-csi-sc-volumes.yaml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: ntnx-csi-sc-volumes.yml.j2
+      wait: yes
+      wait_timeout: 900
     when: volumesClass
 
   - name: apply ntnx-csi-sc-files.yaml
     kubernetes.core.k8s:
       state: present
       kubeconfig: "~/kube_config_rke-cluster.yml"
-      src: "{{ ntnxCsiDir }}/{{ item }}"
-      force: yes
-      namespace: kube-system
-    loop:
-      - "ntnx-csi-sc-files.yaml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: ntnx-csi-sc-files.yml.j2
+      wait: yes
+      wait_timeout: 900
     when: filesClass
 
   - name: apply ntnx-csi-sc-files-dynamic.yaml
     kubernetes.core.k8s:
       state: present
       kubeconfig: "~/kube_config_rke-cluster.yml"
-      src: "{{ ntnxCsiDir }}/{{ item }}"
-      force: yes
-      namespace: kube-system
-    loop:
-      - "ntnx-csi-sc-files-dynamic.yaml"
+      namespace: "{{ ntnx_csi_namespace }}"
+      template: ntnx-csi-sc-files-dynamic.yml.j2
+      wait: yes
+      wait_timeout: 900
     when: filesDynamicClass
 
+  # - name: apply ntnx-csi-sc-volumes.yaml
+  #   kubernetes.core.k8s:
+  #     state: present
+  #     kubeconfig: "~/kube_config_rke-cluster.yml"
+  #     src: "{{ ntnxCsiDir }}/{{ item }}"
+  #     force: yes
+  #     namespace: "{{ ntnx_csi_namespace }}"
+  #     wait: yes
+  #     wait_timeout: 900
+  #   loop:
+  #     - "ntnx-csi-sc-volumes.yaml"
+  #   when: volumesClass
+  #
+  # - name: apply ntnx-csi-sc-files.yaml
+  #   kubernetes.core.k8s:
+  #     state: present
+  #     kubeconfig: "~/kube_config_rke-cluster.yml"
+  #     src: "{{ ntnxCsiDir }}/{{ item }}"
+  #     force: yes
+  #     namespace: "{{ ntnx_csi_namespace }}"
+  #     wait: yes
+  #     wait_timeout: 900
+  #   loop:
+  #     - "ntnx-csi-sc-files.yaml"
+  #   when: filesClass
+  #
+  # - name: apply ntnx-csi-sc-files-dynamic.yaml
+  #   kubernetes.core.k8s:
+  #     state: present
+  #     kubeconfig: "~/kube_config_rke-cluster.yml"
+  #     src: "{{ ntnxCsiDir }}/{{ item }}"
+  #     force: yes
+  #     namespace: "{{ ntnx_csi_namespace }}"
+  #     wait: yes
+  #     wait_timeout: 900
+  #   loop:
+  #     - "ntnx-csi-sc-files-dynamic.yaml"
+  #   when: filesDynamicClass
+  #
   # - name: apply ntnx-csi-rbac.yaml
   #   shell: "/usr/bin/kubectl apply -f {{ ntnxCsiDir }}/ntnx-csi-rbac.yaml"
   #   args:
