@@ -4,5 +4,3 @@
     hosts: admin_vm
     roles:
       - rancher_deploy
-    when:
-      - rancher.deploy
