@@ -1,7 +1,7 @@
 # roles/ntnx_csi_driver_deploy/defaults/main.yml
 ntnxCsiDir: "~/.ntnx-csi"
 kubeconfig: "~/kube_config_rke-cluster.yml"
-
+namespace: ntnx-system
 # storage class config
 # nutanix_pe_ip_address: ""
 # nutanix_pe_username: "admin"
