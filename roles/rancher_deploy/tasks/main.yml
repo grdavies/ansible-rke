@@ -57,7 +57,7 @@
     kubernetes.core.helm:
       name: "rancher"
       kubeconfig: "~/kube_config_rke-cluster.yml"
-      chart_ref: rancher-latest/rancher
+      chart_ref: rancher-stable/rancher
       namespace: cattle-system
       release_state: present
       update_repo_cache: yes
