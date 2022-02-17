@@ -4,6 +4,8 @@
     file:
       path: "~/.rancher"
       state: directory
+    when:
+      - rancher.deploy
 
   - name: generate "~/.rancher/rancher.config.yaml"
     template:
@@ -12,14 +14,15 @@
       owner: nutanix
       group: nutanix
       mode: '0600'
-
-  - debug:
-      var: rancher
+    when:
+      - rancher.deploy
 
   - name: Add rancher Helm repository
     kubernetes.core.helm_repository:
       name: "{{ rancher.repo }}"
       repo_url: "https://releases.rancher.com/server-charts/latest"
+    when:
+      - rancher.deploy
 
   - name: Ensure namespace exists
     kubernetes.core.k8s:
@@ -27,11 +30,15 @@
       api_version: v1
       kind: Namespace
       state: present
+    when:
+      - rancher.deploy
 
   - name: add Jetstack Helm repository
     kubernetes.core.helm_repository:
       name: jetstack
       repo_url: "https://charts.jetstack.io"
+    when:
+      - rancher.deploy
 
   - name: install the cert-manager Helm chart
     kubernetes.core.helm:
@@ -43,6 +50,8 @@
       update_repo_cache: yes
       values:
         installCRDs: true
+    when:
+      - rancher.deploy
 
   - name: install rancher
     kubernetes.core.helm:
@@ -53,3 +62,5 @@
       release_state: present
       update_repo_cache: yes
       values: "{{ lookup('template', 'rancher.config.yml.j2') | from_yaml }}"
+    when:
+      - rancher.deploy
