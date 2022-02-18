@@ -21,7 +21,7 @@
       kind: Namespace
       state: present
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   # - name: apply generated nutanix csi config
   #   kubernetes.core.k8s:
@@ -51,7 +51,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: ntnx-csi-rbac.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   - name: apply ntnx-csi-node.yaml
     kubernetes.core.k8s:
@@ -60,7 +60,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: ntnx-csi-node.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   - name: apply ntnx-csi-provisioner.yaml
     kubernetes.core.k8s:
@@ -78,7 +78,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: csi-driver.yml.j2
       wait: yes
-      wait_timeout: 15m
+      wait_timeout: 60
 
   - name: apply snapshot.storage.k8s.io_volumesnapshotclasses.yaml
     kubernetes.core.k8s:
@@ -87,7 +87,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: crd/snapshot.storage.k8s.io_volumesnapshotclasses.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   - name: apply snapshot.storage.k8s.io_volumesnapshotcontents.yaml
     kubernetes.core.k8s:
@@ -96,7 +96,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: crd/snapshot.storage.k8s.io_volumesnapshotcontents.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   - name: apply snapshot.storage.k8s.io_volumesnapshots.yaml
     kubernetes.core.k8s:
@@ -105,7 +105,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: crd/snapshot.storage.k8s.io_volumesnapshots.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   - name: apply snapshot-controller-setup.yaml
     kubernetes.core.k8s:
@@ -114,7 +114,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: snapshot-controller-setup.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   - name: apply snapshot-controller-rbac.yaml
     kubernetes.core.k8s:
@@ -123,7 +123,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: snapshot-controller-rbac.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   - name: apply ntnx-csi-secret.yaml
     kubernetes.core.k8s:
@@ -132,7 +132,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: ntnx-csi-secret.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
 
   - name: apply ntnx-csi-sc-volumes.yaml
     kubernetes.core.k8s:
@@ -141,7 +141,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: ntnx-csi-sc-volumes.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
     when: volumesClass
 
   - name: apply ntnx-csi-sc-files.yaml
@@ -151,7 +151,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: ntnx-csi-sc-files.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
     when: filesClass
 
   - name: apply ntnx-csi-sc-files-dynamic.yaml
@@ -161,7 +161,7 @@
       namespace: "{{ ntnx_csi_namespace }}"
       template: ntnx-csi-sc-files-dynamic.yml.j2
       wait: yes
-      wait_timeout: 5m
+      wait_timeout: 60
     when: filesDynamicClass
 
   # - name: apply ntnx-csi-sc-volumes.yaml
