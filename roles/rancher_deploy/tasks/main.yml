@@ -31,7 +31,7 @@
       kind: Namespace
       state: present
       wait: yes
-      wait_timeout: 900
+      wait_timeout: 5m
     when:
       - rancher.deploy
 
@@ -51,7 +51,7 @@
       create_namespace: yes
       update_repo_cache: yes
       wait: yes
-      wait_timeout: 900
+      wait_timeout: 5m
       values:
         installCRDs: true
     when:
@@ -67,6 +67,6 @@
       update_repo_cache: yes
       values: "{{ lookup('template', 'rancher.config.yml.j2') | from_yaml }}"
       wait: yes
-      wait_timeout: 900
+      wait_timeout: 15m
     when:
       - rancher.deploy
